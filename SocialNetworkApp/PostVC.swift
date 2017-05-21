@@ -7,12 +7,37 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
 
 class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    var databaseRef = FIRDatabase.database().reference()
+    var loggedInUser: AnyObject? = .none
+    
     @IBOutlet weak var btnPostIt: UIStackView!
-   // var loggedInUser = AnyObject?()
     @IBOutlet weak var messageText: UITextView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.loggedInUser = FIRAuth.auth()?.currentUser
+        
+        messageText.textContainerInset = UIEdgeInsetsMake(30, 20, 20, 20)
+        messageText.text = "Hello, what's happening?"
+        messageText.textColor = UIColor.lightGray
+    }
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if messageText.textColor == UIColor.lightGray {
+            messageText.text = ""
+            messageText.textColor = UIColor.black
+        }
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
     
     @IBAction func addPhoto(_ sender: Any) {
         let imagePickerController = UIImagePickerController()
@@ -71,68 +96,6 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
         
     }
     
-    @IBAction func btnPostItClick(_ sender: Any) {
-     
-        if messageText.text.characters.count>0 {
-            //add it to database 
-//            
-//            let para:NSMutableDictionary = NSMutableDictionary()
-//            let prodArray:NSMutableArray = NSMutableArray()
-//            
-//            para.setValue(String(receivedString), forKey: "room")
-//            para.setValue(observationString, forKey: "observation")
-//            para.setValue(stringDate, forKey: "date")
-//            
-//            for product in products
-//            {
-//                let prod: NSMutableDictionary = NSMutableDictionary()
-//                prod.setValue(product.name, forKey: "name")
-//                prod.setValue(product.quantity, forKey: "quantity")
-//                prodArray.addObject(prod)
-//            }
-//            
-//            para.setObject(prodArray, forKey: "products")
-            
-            
-            let date = NSDate()
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
-            
-            let defaultTimeZoneStr = formatter.string(from: date as Date)
-            
-            let postArray:NSMutableArray = NSMutableArray()
-            let postdetails:NSMutableDictionary = NSMutableDictionary()
-            
-            //user, content, ts
-            
-            postdetails.setValue(messageText, forKey: "postContent")
-            postdetails.setValue(defaultTimeZoneStr, forKey: "timestamp")
-            
-            postArray.add(postdetails)
-    
-        }
-
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        messageText.textContainerInset = UIEdgeInsetsMake(30, 20, 20, 20)
-        messageText.text = "Hello, what's happening?"
-        messageText.textColor = UIColor.lightGray
-    }
-
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if messageText.textColor == UIColor.lightGray {
-            messageText.text = ""
-            messageText.textColor = UIColor.black
-        }
-    }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return false
-    }
-    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
@@ -142,4 +105,59 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
         // Dispose of any resources that can be recreated.
     }
     
-}
+    @IBAction func btnPostItClick(_ sender: Any) {
+     
+        if messageText.text.characters.count>0 {
+            let key = self.databaseRef.child("posts").childByAutoId().key
+            
+            let childUpdates = ["/posts/\(self.loggedInUser!.uid)/\(key)/text":messageText.text,
+                                "/posts/\(self.loggedInUser!.uid)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)"] as [String : Any]
+            
+            self.databaseRef.updateChildValues(childUpdates)
+            
+            dismiss(animated: true, completion: nil)
+            
+        }
+//        if messageText.text.characters.count>0 {
+//            //add it to database 
+////            
+////            let para:NSMutableDictionary = NSMutableDictionary()
+////            let prodArray:NSMutableArray = NSMutableArray()
+////
+////            para.setValue(String(receivedString), forKey: "room")
+////            para.setValue(observationString, forKey: "observation")
+////            para.setValue(stringDate, forKey: "date")
+////            
+////            for product in products
+////            {
+////                let prod: NSMutableDictionary = NSMutableDictionary()
+////                prod.setValue(product.name, forKey: "name")
+////                prod.setValue(product.quantity, forKey: "quantity")
+////                prodArray.addObject(prod)
+////            }
+////            
+////            para.setObject(prodArray, forKey: "products")
+//            
+//            
+//            let date = NSDate()
+//            
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
+//            
+//            let defaultTimeZoneStr = formatter.string(from: date as Date)
+//            
+//            let postArray:NSMutableArray = NSMutableArray()
+//            let postdetails:NSMutableDictionary = NSMutableDictionary()
+//            
+//            //user, content, ts
+//            
+//            postdetails.setValue(messageText, forKey: "postContent")
+//            postdetails.setValue(defaultTimeZoneStr, forKey: "timestamp")
+//            
+//            postArray.add(postdetails)
+    
+        }
+
+    }
+    
+
