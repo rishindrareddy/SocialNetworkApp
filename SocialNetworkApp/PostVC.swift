@@ -102,60 +102,22 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func btnPostItClick(_ sender: Any) {
      
         if messageText.text.characters.count>0 {
+            
             let key = self.databaseRef.child("posts").childByAutoId().key
-            
-            let childUpdates = ["/posts/\(self.loggedInUser!.uid)/\(key)/text":messageText.text,
-                                "/posts/\(self.loggedInUser!.uid)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)"] as [String : Any]
-            
+           
+            let childUpdates = ["/posts/\(self.loggedInUser!.uid!)/\(key)/text":messageText.text,
+                                "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)"] as [String : Any]
+ 
             self.databaseRef.updateChildValues(childUpdates)
             
             dismiss(animated: true, completion: nil)
-            
-        }
-//        if messageText.text.characters.count>0 {
-//            //add it to database 
-////            
-////            let para:NSMutableDictionary = NSMutableDictionary()
-////            let prodArray:NSMutableArray = NSMutableArray()
-////
-////            para.setValue(String(receivedString), forKey: "room")
-////            para.setValue(observationString, forKey: "observation")
-////            para.setValue(stringDate, forKey: "date")
-////            
-////            for product in products
-////            {
-////                let prod: NSMutableDictionary = NSMutableDictionary()
-////                prod.setValue(product.name, forKey: "name")
-////                prod.setValue(product.quantity, forKey: "quantity")
-////                prodArray.addObject(prod)
-////            }
-////            
-////            para.setObject(prodArray, forKey: "products")
-//            
-//            
-//            let date = NSDate()
-//            
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
-//            
-//            let defaultTimeZoneStr = formatter.string(from: date as Date)
-//            
-//            let postArray:NSMutableArray = NSMutableArray()
-//            let postdetails:NSMutableDictionary = NSMutableDictionary()
-//            
-//            //user, content, ts
-//            
-//            postdetails.setValue(messageText, forKey: "postContent")
-//            postdetails.setValue(defaultTimeZoneStr, forKey: "timestamp")
-//            
-//            postArray.add(postdetails)
-    
+            }
+        
         }
 
     }

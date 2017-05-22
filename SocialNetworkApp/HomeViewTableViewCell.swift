@@ -20,12 +20,12 @@ public class HomeViewTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    public func configure(profilePic:String?,name:String,handle:String?,post:String)
+    public func configure(profilePic:String?, post:String)
     {
         self.post.text = post
-        self.handle.text = "@"+handle!
-        self.name.text = name
-        
+//        self.handle.text = "@"+handle!
+//        self.name.text = name
+//        
         
         if((profilePic) != nil)
         {
