@@ -228,10 +228,10 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2iu-ce-Lba">
-                                <rect key="frame" x="0.0" y="48" width="375" height="619"/>
+                                <rect key="frame" x="0.0" y="48" width="375" height="570"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="NaD-wn-46y" detailTextLabel="xqk-Pq-7Lg" style="IBUITableViewCellStyleSubtitle" id="a0F-Nu-qm7">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="NaD-wn-46y" detailTextLabel="xqk-Pq-7Lg" style="IBUITableViewCellStyleSubtitle" id="a0F-Nu-qm7">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a0F-Nu-qm7" id="fc3-FZ-cs1">
@@ -261,11 +261,11 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="DKG-9S-ToV" secondAttribute="trailing" id="8ys-bh-9Tl"/>
+                            <constraint firstItem="2iu-ce-Lba" firstAttribute="bottom" secondItem="Djb-ko-YwX" secondAttribute="top" id="Gfl-zy-ZQZ"/>
                             <constraint firstItem="DKG-9S-ToV" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="Il4-01-0yM"/>
-                            <constraint firstItem="2iu-ce-Lba" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="NLJ-Y6-Sl6"/>
-                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="2iu-ce-Lba" secondAttribute="bottom" id="a68-NN-I4w"/>
-                            <constraint firstAttribute="trailing" secondItem="2iu-ce-Lba" secondAttribute="trailing" id="fC6-wo-fvh"/>
-                            <constraint firstItem="2iu-ce-Lba" firstAttribute="top" secondItem="DKG-9S-ToV" secondAttribute="bottom" id="lIf-ZL-rCj"/>
+                            <constraint firstItem="2iu-ce-Lba" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="a0k-8A-Kaz"/>
+                            <constraint firstItem="2iu-ce-Lba" firstAttribute="top" secondItem="DKG-9S-ToV" secondAttribute="bottom" id="ght-07-2tU"/>
+                            <constraint firstAttribute="trailing" secondItem="2iu-ce-Lba" secondAttribute="trailing" id="kgX-kK-eGQ"/>
                             <constraint firstItem="DKG-9S-ToV" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" constant="4" id="tC8-sw-RSD"/>
                         </constraints>
                     </view>
