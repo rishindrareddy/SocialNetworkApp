@@ -9,12 +9,13 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseStorage
 
 class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var databaseRef = FIRDatabase.database().reference()
     var loggedInUser: AnyObject? = .none
-    
+   
     @IBOutlet weak var btnPostIt: UIStackView!
     @IBOutlet weak var messageText: UITextView!
     
@@ -68,12 +69,12 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         
-        var attributedString = NSAttributedString()
+        var attributedString = NSMutableAttributedString()
         if messageText.text.characters.count>0 {
-            attributedString = NSAttributedString(string: self.messageText.text)
+            attributedString = NSMutableAttributedString(string: self.messageText.text)
         }
         else {
-            attributedString = NSAttributedString(string: "Hello, what's up?")
+            attributedString = NSMutableAttributedString(string: "Hello, what's up?")
         }
         
         let textAttachment = NSTextAttachment()
@@ -86,11 +87,14 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
         textAttachment.image = UIImage.init(cgImage: (textAttachment.image?.cgImage)!, scale: scaleFactor, orientation: .up)
        
         let attrStringWithImage = NSAttributedString(attachment: textAttachment)
-        let combination = NSMutableAttributedString()
-        combination.append(attributedString)
-        combination.append(attrStringWithImage)
-       
-        messageText.attributedText = combination
+//        let combination = NSMutableAttributedString()
+//        combination.append(attributedString)
+//        combination.append(attrStringWithImage)
+//       
+//        messageText.attributedText = combination
+        
+        attributedString.append(attrStringWithImage)
+        messageText.attributedText = attributedString
         print(messageText)
         self.dismiss(animated: true, completion: nil)
         
@@ -106,19 +110,117 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
     
     @IBAction func btnPostItClick(_ sender: Any) {
      
-        if messageText.text.characters.count>0 {
+        var imagesArray = [AnyObject]()
+        
+        //extract the images from the attributed text
+        self.messageText.attributedText.enumerateAttribute(NSAttachmentAttributeName, in: NSMakeRange(0, self.messageText.text.characters.count), options: []) { (value, range, true) in
             
-            let key = self.databaseRef.child("posts").childByAutoId().key
-           
+            if(value is NSTextAttachment)
+            {
+                let attachment = value as! NSTextAttachment
+                var image : UIImage? = nil
+                
+                if(attachment.image !== nil)
+                {
+                    image = attachment.image!
+                    imagesArray.append(image!)
+                }
+                else
+                {
+                    print("No image found")
+                }
+            }
+        }
+        
+        let postLength = messageText.text.characters.count
+        let numImages = imagesArray.count
+        
+        //create a unique auto generated key from firebase database
+        let key = self.databaseRef.child("posts").childByAutoId().key
+        
+        let storageRef = FIRStorage.storage().reference()
+        let pictureStorageRef = storageRef.child("user_profiles/\(self.loggedInUser!.uid!)/media/\(key)")
+        
+        //reduce resolution of selected picture
+        let lowResImageData = UIImageJPEGRepresentation(imagesArray[0] as! UIImage, 0.50)
+        
+        
+        //user has entered text and an image
+        if(postLength>0 && numImages>0)
+        {
+            let uploadTask = pictureStorageRef.put(lowResImageData!,metadata: nil)
+            {metadata,error in
+                
+                if(error == nil)
+                {
+                    let downloadUrl = metadata!.downloadURL()
+                    
+                    let childUpdates = ["/posts/\(self.loggedInUser!.uid!)/\(key)/text":self.messageText.text,
+                                        "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)",
+                        "/posts/\(self.loggedInUser!.uid!)/\(key)/picture":downloadUrl!.absoluteString] as [String : Any]
+                    
+                    self.databaseRef.updateChildValues(childUpdates)
+                }
+                
+            }
+            
+            dismiss(animated: true, completion: nil)
+        }
+        
+            //user has entered only text
+        else if(postLength>0)
+        {
             let childUpdates = ["/posts/\(self.loggedInUser!.uid!)/\(key)/text":messageText.text,
                                 "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)"] as [String : Any]
- 
+            
             self.databaseRef.updateChildValues(childUpdates)
             
             dismiss(animated: true, completion: nil)
+            
+        }
+            //user has entered only an image
+        else if(numImages>0)
+        {
+            let uploadTask = pictureStorageRef.put(lowResImageData!,metadata: nil)
+            {metadata,error in
+                
+                if(error == nil)
+                {
+                    let downloadUrl = metadata!.downloadURL()
+                    
+                    let childUpdates = [
+                        "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)",
+                        "/posts/\(self.loggedInUser!.uid!)/\(key)/picture":downloadUrl!.absoluteString]
+                    
+                    self.databaseRef.updateChildValues(childUpdates)
+                }
+                else
+                {
+                    print(error?.localizedDescription)
+                }
+                
             }
+            
+            dismiss(animated: true, completion: nil)
+            
+        }
+        
+        
+        
+//        if messageText.text.characters.count>0 {
+//            
+//            let key = self.databaseRef.child("posts").childByAutoId().key
+//           
+//            let childUpdates = ["/posts/\(self.loggedInUser!.uid!)/\(key)/text":messageText.text,
+//                                "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)"] as [String : Any]
+// 
+//            self.databaseRef.updateChildValues(childUpdates)
+//            
+//            dismiss(animated: true, completion: nil)
+//            }
         
         }
+    
 
     }
     

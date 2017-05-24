@@ -15,17 +15,20 @@ public class HomeViewTableViewCell: UITableViewCell {
     @IBOutlet weak var post: UITextView!
     @IBOutlet weak var handle: UILabel!
     
+    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var postImage: UIImageView!
+    
     override public func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
-    public func configure(profilePic:String?, post:String)
+    public func configure(profilePic:String?, name:String, handle:String, post:String)
     {
         self.post.text = post
-//        self.handle.text = "@"+handle!
-//        self.name.text = name
-//        
+        self.handle.text = "@"+handle
+        self.name.text = name
+        
         
         if((profilePic) != nil)
         {
@@ -38,11 +41,4 @@ public class HomeViewTableViewCell: UITableViewCell {
         }
         
     }
-
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
-
 }

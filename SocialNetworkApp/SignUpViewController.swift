@@ -58,7 +58,7 @@ class SignUpViewController: UIViewController {
                     {
                         self.databaseRef.child("user_profiles").child(user!.uid).child("email").setValue(self.email.text!)
                         
-                       // self.performSegueWithIdentifier("HandleViewSegue", sender: nil)
+                        self.performSegue(withIdentifier: "HandleViewSegue", sender: nil)
                     }
                 })
             }
@@ -77,8 +77,8 @@ class SignUpViewController: UIViewController {
         }
     }
     override func didReceiveMemoryWarning() {
+        
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 }

@@ -15,6 +15,9 @@
 		FE3B0F791EBD3B620089C41E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE3B0F771EBD3B620089C41E /* Main.storyboard */; };
 		FE3B0F7B1EBD3B620089C41E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE3B0F7A1EBD3B620089C41E /* Assets.xcassets */; };
 		FE3B0F7E1EBD3B620089C41E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE3B0F7C1EBD3B620089C41E /* LaunchScreen.storyboard */; };
+		FE650CA41ED3A0BA007B73C8 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE650CA31ED3A0BA007B73C8 /* StartViewController.swift */; };
+		FE650CA61ED3A9AA007B73C8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE650CA51ED3A9AA007B73C8 /* ProfileViewController.swift */; };
+		FE650CA81ED3C191007B73C8 /* ProfileSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE650CA71ED3C191007B73C8 /* ProfileSetupViewController.swift */; };
 		FE8E3AE11ED1346800A31C24 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE8E3AE01ED1346800A31C24 /* GoogleService-Info.plist */; };
 		FE8E3AE31ED18DEC00A31C24 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8E3AE21ED18DEC00A31C24 /* LoginViewController.swift */; };
 		FE96AE8B1EC8F75900D9B37E /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE96AE8A1EC8F75900D9B37E /* PostVC.swift */; };
@@ -33,6 +36,9 @@
 		FE3B0F781EBD3B620089C41E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FE3B0F7A1EBD3B620089C41E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE3B0F7D1EBD3B620089C41E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FE650CA31ED3A0BA007B73C8 /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		FE650CA51ED3A9AA007B73C8 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		FE650CA71ED3C191007B73C8 /* ProfileSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSetupViewController.swift; sourceTree = "<group>"; };
 		FE8E3AE01ED1346800A31C24 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FE8E3AE21ED18DEC00A31C24 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FE96AE8A1EC8F75900D9B37E /* PostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
@@ -92,16 +98,19 @@
 			children = (
 				FEDA29451ECC25AB0012EBD2 /* Info.plist */,
 				FE3B0F711EBD3B620089C41E /* AppDelegate.swift */,
+				FE650CA31ED3A0BA007B73C8 /* StartViewController.swift */,
 				FE14CF5D1ECC19B300195B37 /* SignUpViewController.swift */,
-				FE96AE8A1EC8F75900D9B37E /* PostVC.swift */,
-				FE3B0F731EBD3B620089C41E /* FirstViewController.swift */,
-				FE8E3AE01ED1346800A31C24 /* GoogleService-Info.plist */,
-				FE3B0F751EBD3B620089C41E /* SecondViewController.swift */,
-				FE3B0F771EBD3B620089C41E /* Main.storyboard */,
 				FE8E3AE21ED18DEC00A31C24 /* LoginViewController.swift */,
+				FE3B0F731EBD3B620089C41E /* FirstViewController.swift */,
+				FE3B0F751EBD3B620089C41E /* SecondViewController.swift */,
+				FE96AE8A1EC8F75900D9B37E /* PostVC.swift */,
+				FE96AE8C1EC9836E00D9B37E /* HomeViewTableViewCell.swift */,
+				FE650CA51ED3A9AA007B73C8 /* ProfileViewController.swift */,
+				FE3B0F771EBD3B620089C41E /* Main.storyboard */,
 				FE3B0F7A1EBD3B620089C41E /* Assets.xcassets */,
 				FE3B0F7C1EBD3B620089C41E /* LaunchScreen.storyboard */,
-				FE96AE8C1EC9836E00D9B37E /* HomeViewTableViewCell.swift */,
+				FE8E3AE01ED1346800A31C24 /* GoogleService-Info.plist */,
+				FE650CA71ED3C191007B73C8 /* ProfileSetupViewController.swift */,
 			);
 			path = SocialNetworkApp;
 			sourceTree = "<group>";
@@ -231,11 +240,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE8E3AE31ED18DEC00A31C24 /* LoginViewController.swift in Sources */,
+				FE650CA41ED3A0BA007B73C8 /* StartViewController.swift in Sources */,
 				FE14CF5E1ECC19B300195B37 /* SignUpViewController.swift in Sources */,
 				FE3B0F761EBD3B620089C41E /* SecondViewController.swift in Sources */,
 				FE3B0F721EBD3B620089C41E /* AppDelegate.swift in Sources */,
 				FE3B0F741EBD3B620089C41E /* FirstViewController.swift in Sources */,
+				FE650CA61ED3A9AA007B73C8 /* ProfileViewController.swift in Sources */,
 				FE96AE8D1EC9836E00D9B37E /* HomeViewTableViewCell.swift in Sources */,
+				FE650CA81ED3C191007B73C8 /* ProfileSetupViewController.swift in Sources */,
 				FE96AE8B1EC8F75900D9B37E /* PostVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
