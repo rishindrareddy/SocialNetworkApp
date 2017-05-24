@@ -86,6 +86,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imageTapped(gesture: UIGestureRecognizer) {
     
         if (gesture.view as? UIImageView) != nil {
+            
             print("Image Tapped")
             
             let actionSheet = UIAlertController(title: "Profile picture", message: "Select", preferredStyle: .actionSheet)

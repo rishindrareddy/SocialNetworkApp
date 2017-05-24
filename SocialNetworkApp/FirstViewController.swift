@@ -38,7 +38,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         let post = posts[(count-1) - indexPath.row]!.value(forKey: "text") as! String
         
         let imageTap = UITapGestureRecognizer(target: self, action: #selector(didTapMediaInPost(sender:)))
-        
         cell.postImage.addGestureRecognizer(imageTap)
         
         let p = posts[(count-1)-indexPath.row]!.value(forKey: "picture")
@@ -65,9 +64,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             cell.imageViewHeightConstraint.constant = 0
         }
 
-        
-        
-        
         cell.configure(profilePic: nil, name: self.loggedInUserDetails!.value(forKey: "name") as! String, handle: self.loggedInUserDetails!.value(forKey: "handle") as! String, post: post)
         
         return cell
