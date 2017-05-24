@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E17817F87D9AABC15DFFBB1 /* Pods_SocialNetworkApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D3D2DED9BA0E122FB486776 /* Pods_SocialNetworkApp.framework */; };
+		3F5687851ED56C2D007C94DB /* friendProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5687841ED56C2D007C94DB /* friendProfileViewController.swift */; };
 		FE14CF5E1ECC19B300195B37 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE14CF5D1ECC19B300195B37 /* SignUpViewController.swift */; };
 		FE3B0F721EBD3B620089C41E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B0F711EBD3B620089C41E /* AppDelegate.swift */; };
 		FE3B0F741EBD3B620089C41E /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B0F731EBD3B620089C41E /* FirstViewController.swift */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		192BA4D85B8A6A08AF820C55 /* Pods-SocialNetworkApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialNetworkApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialNetworkApp/Pods-SocialNetworkApp.debug.xcconfig"; sourceTree = "<group>"; };
+		3F5687841ED56C2D007C94DB /* friendProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = friendProfileViewController.swift; sourceTree = "<group>"; };
 		5D3D2DED9BA0E122FB486776 /* Pods_SocialNetworkApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialNetworkApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70F3E031D16E2DBCCCC34C64 /* Pods-SocialNetworkApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialNetworkApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocialNetworkApp/Pods-SocialNetworkApp.release.xcconfig"; sourceTree = "<group>"; };
 		FE14CF5D1ECC19B300195B37 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				FE96AE8C1EC9836E00D9B37E /* HomeViewTableViewCell.swift */,
 				FE650CA51ED3A9AA007B73C8 /* ProfileViewController.swift */,
 				FE3B0F771EBD3B620089C41E /* Main.storyboard */,
+				3F5687841ED56C2D007C94DB /* friendProfileViewController.swift */,
 				FE3B0F7A1EBD3B620089C41E /* Assets.xcassets */,
 				FE3B0F7C1EBD3B620089C41E /* LaunchScreen.storyboard */,
 				FE8E3AE01ED1346800A31C24 /* GoogleService-Info.plist */,
@@ -245,6 +248,7 @@
 				FE3B0F761EBD3B620089C41E /* SecondViewController.swift in Sources */,
 				FE3B0F721EBD3B620089C41E /* AppDelegate.swift in Sources */,
 				FE3B0F741EBD3B620089C41E /* FirstViewController.swift in Sources */,
+				3F5687851ED56C2D007C94DB /* friendProfileViewController.swift in Sources */,
 				FE650CA61ED3A9AA007B73C8 /* ProfileViewController.swift in Sources */,
 				FE96AE8D1EC9836E00D9B37E /* HomeViewTableViewCell.swift in Sources */,
 				FE650CA81ED3C191007B73C8 /* ProfileSetupViewController.swift in Sources */,

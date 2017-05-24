@@ -13,7 +13,7 @@ import SDWebImage
 
 class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var databaseRef = FIRDatabase.database().reference()
+    var databaseRef = Database.database().reference()
     var loggedInUser: AnyObject? = .none
     var loggedInUserDetails: AnyObject? = .none
     var posts : Array = [AnyObject?]()
@@ -93,14 +93,14 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad() 
         
-        self.loggedInUser = FIRAuth.auth()?.currentUser
+        self.loggedInUser = Auth.auth().currentUser
        
-        self.databaseRef.child("user_profiles").child(self.loggedInUser!.uid!).observeSingleEvent(of: .value) { (snapshot:FIRDataSnapshot) in
+        self.databaseRef.child("user_profiles").child(self.loggedInUser!.uid!).observeSingleEvent(of: .value) { (snapshot:DataSnapshot) in
            
             self.loggedInUserDetails = snapshot.value as AnyObject
             
             //get all the tweets that are made by the user
-             self.databaseRef.child("posts/\(self.loggedInUser!.uid!)").observe(.childAdded, with: { (snapshot:FIRDataSnapshot) in
+             self.databaseRef.child("posts/\(self.loggedInUser!.uid!)").observe(.childAdded, with: { (snapshot:DataSnapshot) in
              
              self.posts.append(snapshot.value as! NSDictionary)
 
