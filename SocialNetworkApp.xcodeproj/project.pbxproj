@@ -22,6 +22,7 @@
 		FE8E3AE31ED18DEC00A31C24 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8E3AE21ED18DEC00A31C24 /* LoginViewController.swift */; };
 		FE96AE8B1EC8F75900D9B37E /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE96AE8A1EC8F75900D9B37E /* PostVC.swift */; };
 		FE96AE8D1EC9836E00D9B37E /* HomeViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE96AE8C1EC9836E00D9B37E /* HomeViewTableViewCell.swift */; };
+		FEFC2B5E1ED51D4B0034090E /* FollowUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFC2B5D1ED51D4B0034090E /* FollowUsersViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		FE96AE8A1EC8F75900D9B37E /* PostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
 		FE96AE8C1EC9836E00D9B37E /* HomeViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewTableViewCell.swift; sourceTree = "<group>"; };
 		FEDA29451ECC25AB0012EBD2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FEFC2B5D1ED51D4B0034090E /* FollowUsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowUsersViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				FE96AE8C1EC9836E00D9B37E /* HomeViewTableViewCell.swift */,
 				FE650CA51ED3A9AA007B73C8 /* ProfileViewController.swift */,
 				FE3B0F771EBD3B620089C41E /* Main.storyboard */,
+				FEFC2B5D1ED51D4B0034090E /* FollowUsersViewController.swift */,
 				FE3B0F7A1EBD3B620089C41E /* Assets.xcassets */,
 				FE3B0F7C1EBD3B620089C41E /* LaunchScreen.storyboard */,
 				FE8E3AE01ED1346800A31C24 /* GoogleService-Info.plist */,
@@ -241,6 +244,7 @@
 			files = (
 				FE8E3AE31ED18DEC00A31C24 /* LoginViewController.swift in Sources */,
 				FE650CA41ED3A0BA007B73C8 /* StartViewController.swift in Sources */,
+				FEFC2B5E1ED51D4B0034090E /* FollowUsersViewController.swift in Sources */,
 				FE14CF5E1ECC19B300195B37 /* SignUpViewController.swift in Sources */,
 				FE3B0F761EBD3B620089C41E /* SecondViewController.swift in Sources */,
 				FE3B0F721EBD3B620089C41E /* AppDelegate.swift in Sources */,
