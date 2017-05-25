@@ -19,6 +19,8 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
     @IBOutlet weak var btnPostIt: UIStackView!
     @IBOutlet weak var messageText: UITextView!
     
+    var imagePicker = UIImagePickerController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,30 +42,110 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
         return false
     }
     
-    @IBAction func addPhoto(_ sender: Any) {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
+    @IBAction func btnPostItClick(_ sender: Any) {
         
-        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
+        var imagesArray = [AnyObject]()
         
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction) in
+        //extract the images from the attributed text
+        self.messageText.attributedText.enumerateAttribute(NSAttachmentAttributeName, in: NSMakeRange(0, self.messageText.text.characters.count), options: []) { (value, range, true) in
             
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                imagePickerController.sourceType = .camera
-                self.present(imagePickerController, animated: true, completion: nil)
-            }else{
-                print("Camera not available")
+            if(value is NSTextAttachment)
+            {
+                let attachment = value as! NSTextAttachment
+                var image : UIImage? = nil
+                
+                if(attachment.image !== nil)
+                {
+                    image = attachment.image!
+                    imagesArray.append(image!)
+                }
+                else
+                {
+                    print("No image found")
+                }
             }
-        }))
+        }
         
-        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action:UIAlertAction) in
-            imagePickerController.sourceType = .photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
-        }))
+        let postLength = messageText.text.characters.count
+        let numImages = imagesArray.count
         
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(actionSheet, animated: true, completion: nil)
+        //create a unique auto generated key from firebase database
+        let key = self.databaseRef.child("posts").childByAutoId().key
         
+        let storageRef = FIRStorage.storage().reference()
+        let pictureStorageRef = storageRef.child("user_profiles/\(self.loggedInUser!.uid!)/media/\(key)")
+        
+        //user has entered text and an image
+        if(postLength>0 && numImages>0)
+        {
+            let lowResImageData = UIImageJPEGRepresentation(imagesArray[0] as! UIImage, 0.50)
+            let uploadTask = pictureStorageRef.put(lowResImageData!,metadata: nil)
+            { metadata,error in
+                
+                if(error == nil)
+                {
+                    let downloadUrl = metadata!.downloadURL()
+                    
+                    let childUpdates = ["/posts/\(self.loggedInUser!.uid!)/\(key)/text":self.messageText.text,
+                                        "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)",
+                        "/posts/\(self.loggedInUser!.uid!)/\(key)/picture":downloadUrl!.absoluteString] as [String : Any]
+                    
+                    self.databaseRef.updateChildValues(childUpdates)
+                }
+            }
+            
+            dismiss(animated: true, completion: nil)
+        }
+            
+            //user has entered only text
+        else if(postLength>0)
+        {
+            let childUpdates = ["/posts/\(self.loggedInUser!.uid!)/\(key)/text":messageText.text,
+                                "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)"] as [String : Any]
+            
+            self.databaseRef.updateChildValues(childUpdates)
+            
+            dismiss(animated: true, completion: nil)
+            
+        }
+            //user has entered only an image
+        else if(numImages>0)
+        {
+            let lowResImageData = UIImageJPEGRepresentation(imagesArray[0] as! UIImage, 0.50)
+            let uploadTask = pictureStorageRef.put(lowResImageData!,metadata: nil)
+            {metadata,error in
+                
+                if(error == nil)
+                {
+                    let downloadUrl = metadata!.downloadURL()
+                    
+                    let childUpdates = [
+                        "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)",
+                        "/posts/\(self.loggedInUser!.uid!)/\(key)/picture":downloadUrl!.absoluteString]
+                    
+                    self.databaseRef.updateChildValues(childUpdates)
+                }
+                else
+                {
+                    print(error?.localizedDescription)
+                }
+            }
+            dismiss(animated: true, completion: nil)
+        }
+        
+        // performSegue(withIdentifier: "postToHome", sender: self)
+        
+    }
+    
+    @IBAction func addPhoto(_ sender: Any) {
+        
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum)
+        {
+            self.imagePicker.delegate = self
+            self.imagePicker.sourceType = .savedPhotosAlbum
+            self.imagePicker.allowsEditing = true
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
     }
     
     @IBAction func didTapCancel(_ sender: Any) {
@@ -106,114 +188,6 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func btnPostItClick(_ sender: Any) {
-     
-        var imagesArray = [AnyObject]()
-        
-        //extract the images from the attributed text
-        self.messageText.attributedText.enumerateAttribute(NSAttachmentAttributeName, in: NSMakeRange(0, self.messageText.text.characters.count), options: []) { (value, range, true) in
-            
-            if(value is NSTextAttachment)
-            {
-                let attachment = value as! NSTextAttachment
-                var image : UIImage? = nil
-                
-                if(attachment.image !== nil)
-                {
-                    image = attachment.image!
-                    imagesArray.append(image!)
-                }
-                else
-                {
-                    print("No image found")
-                }
-            }
-        }
-        
-        let postLength = messageText.text.characters.count
-        let numImages = imagesArray.count
-        
-        //create a unique auto generated key from firebase database
-        let key = self.databaseRef.child("posts").childByAutoId().key
-        
-        let storageRef = FIRStorage.storage().reference()
-        let pictureStorageRef = storageRef.child("user_profiles/\(self.loggedInUser!.uid!)/media/\(key)")
-        
-        //reduce resolution of selected picture
-        let lowResImageData = UIImageJPEGRepresentation(imagesArray[0] as! UIImage, 0.50)
-        
-        
-        //user has entered text and an image
-        if(postLength>0 && numImages>0)
-        {
-            let uploadTask = pictureStorageRef.put(lowResImageData!,metadata: nil)
-            {metadata,error in
-                
-                if(error == nil)
-                {
-                    let downloadUrl = metadata!.downloadURL()
-                    
-                    let childUpdates = ["/posts/\(self.loggedInUser!.uid!)/\(key)/text":self.messageText.text,
-                                        "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)",
-                        "/posts/\(self.loggedInUser!.uid!)/\(key)/picture":downloadUrl!.absoluteString] as [String : Any]
-                    
-                    self.databaseRef.updateChildValues(childUpdates)
-                }
-                else
-                {
-                    print(error?.localizedDescription)
-                }
-                
-            }
-            
-            dismiss(animated: true, completion: nil)
-        }
-        
-            //user has entered only text
-        else if(postLength>0)
-        {
-            let childUpdates = ["/posts/\(self.loggedInUser!.uid!)/\(key)/text":messageText.text,
-                                "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)"] as [String : Any]
-            
-            self.databaseRef.updateChildValues(childUpdates)
-            
-            dismiss(animated: true, completion: nil)
-            
-        }
-            //user has entered only an image
-        else if(numImages>0)
-        {
-            let uploadTask = pictureStorageRef.put(lowResImageData!,metadata: nil)
-            {metadata,error in
-                
-                if(error == nil)
-                {
-                    let downloadUrl = metadata!.downloadURL()
-                    
-                    let childUpdates = [
-                        "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)",
-                        "/posts/\(self.loggedInUser!.uid!)/\(key)/picture":downloadUrl!.absoluteString]
-                    
-                    self.databaseRef.updateChildValues(childUpdates)
-                }
-                else
-                {
-                    print(error?.localizedDescription)
-                }
-                
-            }
-            
-           dismiss(animated: true, completion: nil)
-            
-        }
-        
-       // performSegue(withIdentifier: "postToHome", sender: self)
-  
-        
-        
-        }
-    
-
-    }
+}
     
 

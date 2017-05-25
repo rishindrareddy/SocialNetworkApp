@@ -52,10 +52,18 @@ class ProfileSetupViewController: UIViewController {
                     self.rootRef.child("user_profiles").child(self.user!.uid).child("profession").setValue(self.profession.text!)
                     
                     //update interests of the user
-                    self.rootRef.child("user_profiles").child(self.user!.uid).child("interests").setValue(self.profession.text!)
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("interests").setValue(self.interests.text!)
                     
                     //update address of the user
-                    self.rootRef.child("user_profiles").child(self.user!.uid).child("address").setValue(self.profession.text!)
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("address").setValue(self.address.text!)
+                    
+                    
+                    //update visibility of the user
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("visibility").setValue("public")
+                    
+                    
+                    //update notifications of the user
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("notifications").setValue("disabled")
                     
                     //update the handle in the handle node
                     

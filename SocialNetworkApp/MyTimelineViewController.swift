@@ -1,14 +1,14 @@
 //
-//  FollowUsersViewController.swift
+//  MyTimelineViewController.swift
 //  SocialNetworkApp
 //
-//  Created by Siddhi Suthar on 5/23/17.
+//  Created by Siddhi Suthar on 5/24/17.
 //  Copyright © 2017 Siddhi. All rights reserved.
 //
 
 import UIKit
 
-class FollowUsersViewController: UIViewController {
+class MyTimelineViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

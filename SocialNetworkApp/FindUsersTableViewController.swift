@@ -15,7 +15,7 @@ class FindUsersTableViewController: UITableViewController, UISearchResultsUpdati
     @IBOutlet var findUsersTableView: UITableView!
     let searchController = UISearchController(searchResultsController: nil)
     
-    //var loggedInUser:FIRUser?
+    var loggedInUser:FIRUser?
     var usersArray = [NSDictionary?]()
     var filteredUsers = [NSDictionary?]()
   
@@ -32,32 +32,24 @@ class FindUsersTableViewController: UITableViewController, UISearchResultsUpdati
         
         databaseRef.child("user_profiles").queryOrdered(byChild: "email").observe(.childAdded, with: { (snapshot) in
             
+            let key = snapshot.key
             let snapshot = snapshot.value as? NSDictionary
+            snapshot?.setValue(key, forKey: "uid")
             
-            
-              self.usersArray.append(snapshot)
+            if(key == self.loggedInUser?.uid)
+            {
+                print("Same as logged in user, so don't show!")
+            }
+            else
+            {
+                self.usersArray.append(snapshot)
                 //insert the rows
                 self.findUsersTableView.insertRows(at: [IndexPath(row:self.usersArray.count-1,section:0)], with: UITableViewRowAnimation.automatic)
-            
+            }
             
         }) { (error) in
             print(error.localizedDescription)
         }
-        
-//        databaseRef.child("user_profiles").queryOrdered(byChild: "name").observe(.childAdded, with: { (snapshot) in
-//            
-//            let snapshot = snapshot.value as? NSDictionary
-//            
-//            
-//            self.usersArray.append(snapshot)
-//            //insert the rows
-//            self.findUsersTableView.insertRows(at: [IndexPath(row:self.usersArray.count-1,section:0)], with: UITableViewRowAnimation.automatic)
-//            
-//            
-//            
-//        }) { (error) in
-//            print(error.localizedDescription)
-//        }
 
     }
 
