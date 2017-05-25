@@ -24,12 +24,10 @@ class createMailViewController: UIViewController {
         let m = msgItem(from: "", to: toTextField.text!, sub: mailSubTextField.text!, body:  mailBodyTextField.text!, id: "" )
         
         delegate.addNew(mail: m)
-       // navigationController?.popViewController(animated: true)
     }
     
     @IBAction func didTapCancel(_ sender: Any) {
-        
-         dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
         
     }
     

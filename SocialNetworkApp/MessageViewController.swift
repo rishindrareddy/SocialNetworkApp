@@ -17,14 +17,9 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     var loggedInUser: AnyObject? = .none
     var databaseRef = FIRDatabase.database().reference()
     
-    var rootRef: FIRDatabaseReference!
-    
-    var userID: String = ""
-    var email = "mypersonalbox6@gmail.com"
-    var password = "123456"
-    var handle = ""
     var msgArray = [msgItem]()
     var count = 20
+    var handle = ""
 
     
     @IBOutlet weak var toTextField: UITextField!
@@ -33,52 +28,37 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loggedInUser = FIRAuth.auth()?.currentUser
-    
-        rootRef = FIRDatabase.database().reference()
         
-        //Get the messages from users mailbox
-        FIRAuth.auth()?.signIn(withEmail: self.email, password: self.password, completion: { (user, error) in
-            if(error == nil){
+        self.loggedInUser = FIRAuth.auth()?.currentUser
+        
+        self.databaseRef.child("user_profiles").child(self.loggedInUser!.uid!).child("mailbox").observeSingleEvent(of: .value, with: { (snapshot) in
+        
+            for item in snapshot.children {
                 
-                print ("Successful")
-                self.userID = (FIRAuth.auth()?.currentUser?.uid)!
-                //self.handle = value?["handle"] as? String ?? ""
+                let child = item as! FIRDataSnapshot
+                let dict = child.value as! NSDictionary
+                print(dict.value(forKey: "from")!)
+                print(dict.value(forKey: "to")!)
+                print(dict.value(forKey: "body")!)
+                print(dict.value(forKey: "sub")!)
+                print("KEY: ",child.key)
                 
-                self.rootRef.child("users").child(self.userID).child("mailbox").observeSingleEvent(of: .value, with: { (snapshot) in
-                    
-                    
-                    for item in snapshot.children {
-                        
-                        let child = item as! FIRDataSnapshot
-                        let dict = child.value as! NSDictionary
-                        print(dict.value(forKey: "from")!)
-                        print(dict.value(forKey: "to")!)
-                        print(dict.value(forKey: "body")!)
-                        print(dict.value(forKey: "sub")!)
-                        
-                        let m = msgItem(from: dict.value(forKey: "from")! as! String,to: dict.value(forKey: "to")! as! String,sub: dict.value(forKey: "sub")! as! String,body: dict.value(forKey: "body")! as! String, id: child.key as! String)
-                        self.msgArray.append(m)
-                        
-                    }
-                    
-                    self.msgTableView.reloadData()
-                }) { (error) in
-                    print(error.localizedDescription)
-                }
+                let m = msgItem(from: dict.value(forKey: "from")! as! String,to: dict.value(forKey: "to")! as! String,sub: dict.value(forKey: "sub")! as! String,body: dict.value(forKey: "body")! as! String, id: child.key )
+                self.msgArray.append(m)
                 
-            } else {
+               // self.findUsersTableView.insertRows(at: [IndexPath(row:self.usersArray.count-1,section:0)], with: UITableViewRowAnimation.automatic)
+                
+                print("MsgArray:  \(self.msgArray)")
                 
             }
-        })
+            
+            self.msgTableView.reloadData()
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+        
     }
-//    @IBAction func composeMessage(_ sender: Any) {
-//        
-//        
-//    }
-//    
-    
-    
     
     func addNew(mail: msgItem) {
         
@@ -86,12 +66,13 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.databaseRef.child("user_profiles").child(self.loggedInUser!.uid!).observeSingleEvent(of: .value, with: { (snapshot) in
             
             let value = snapshot.value as? NSDictionary
-            self.handle = (value?["handle"] as? String)!
+            
+            var tempHandle = (value?["handle"] as? String)!
             
             var  elem: NSMutableDictionary = [:]
             
             
-            elem.setValue(self.handle, forKey: "from")
+            elem.setValue(tempHandle, forKey: "from")
             elem.setValue(mail.to, forKey: "to")
             elem.setValue(mail.sub, forKey: "sub")
             elem.setValue(mail.body, forKey: "body")
@@ -102,7 +83,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.databaseRef.child("user_profiles").child(self.loggedInUser!.uid!).child("mailbox").child(key).setValue(elem)
             
             
-            mail.from = self.handle
+            mail.from = tempHandle
             mail.id = key
             self.msgArray.append(mail)
             self.msgTableView.reloadData()
@@ -114,14 +95,16 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return msgArray.count
+        return self.msgArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "msgCell") as! UITableViewCell
        
-        let mail = msgArray[indexPath.row]
+        let mail = self.msgArray[indexPath.row]
+        
+      
         cell.textLabel?.text = "user:" + mail.to
         cell.detailTextLabel?.text = "Sub:" + mail.sub
         self.count-=1
@@ -138,30 +121,19 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    //delete message
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            // Remove from firebase
-            FIRAuth.auth()?.signIn(withEmail: self.email, password: self.password, completion: { (user, error) in
-                if(error == nil){
-                    self.userID = (FIRAuth.auth()?.currentUser?.uid)!
-                    self.rootRef.child("users").child(self.userID).child("mailbox").child(self.msgArray[indexPath.row].id).removeValue()
-                    
-                    self.msgArray.remove(at: indexPath.row)
-                    self.msgTableView.reloadData()
-                    
-                } else {
-                    
-                    print("could not delete")
-                    
-                }
-                
-            })
+            self.databaseRef.child("user_profiles").child(self.loggedInUser!.uid!).child("mailbox").child(self.msgArray[indexPath.row].id).removeValue()
             
-                   }
+            self.msgArray.remove(at: indexPath.row)
+            self.msgTableView.reloadData()
+            
+        }
     }
     
-    //MARK: View lifecycle
+   
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "createMailSegue" {
