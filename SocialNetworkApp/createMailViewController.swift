@@ -15,12 +15,8 @@ protocol createMailViewControllerDelegate {
 class createMailViewController: UIViewController {
     
     var delegate: createMailViewControllerDelegate!
-
-    
     @IBOutlet weak var toTextField: UITextField!
-    
     @IBOutlet weak var mailSubTextField: UITextField!
-    
     @IBOutlet weak var mailBodyTextField: UITextView!
 
    
@@ -28,9 +24,14 @@ class createMailViewController: UIViewController {
         let m = msgItem(from: "", to: toTextField.text!, sub: mailSubTextField.text!, body:  mailBodyTextField.text!, id: "" )
         
         delegate.addNew(mail: m)
-        navigationController?.popViewController(animated: true)
+       // navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func didTapCancel(_ sender: Any) {
+        
+         dismiss(animated: true, completion: nil)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

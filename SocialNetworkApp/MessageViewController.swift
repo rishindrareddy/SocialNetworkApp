@@ -62,7 +62,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
                         
                     }
                     
-                    self.tableView.reloadData()
+                    self.msgTableView.reloadData()
                 }) { (error) in
                     print(error.localizedDescription)
                 }
@@ -79,7 +79,6 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
 //    
     
     
-    @IBOutlet weak var tableView: UITableView!
     
     func addNew(mail: msgItem) {
         
@@ -106,7 +105,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
             mail.from = self.handle
             mail.id = key
             self.msgArray.append(mail)
-            self.tableView.reloadData()
+            self.msgTableView.reloadData()
             
             
         }){ (error) in
@@ -149,7 +148,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
                     self.rootRef.child("users").child(self.userID).child("mailbox").child(self.msgArray[indexPath.row].id).removeValue()
                     
                     self.msgArray.remove(at: indexPath.row)
-                    self.tableView.reloadData()
+                    self.msgTableView.reloadData()
                     
                 } else {
                     
