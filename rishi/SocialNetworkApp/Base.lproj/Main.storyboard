@@ -228,45 +228,6 @@
             </objects>
             <point key="canvasLocation" x="1463" y="3"/>
         </scene>
-        <!--Friend Profile View Controller-->
-        <scene sceneID="ip7-cx-qCK">
-            <objects>
-                <viewController id="fNt-Ng-Vvk" customClass="friendProfileViewController" customModule="SocialNetworkApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="LsI-oO-GHo"/>
-                        <viewControllerLayoutGuide type="bottom" id="pFM-OC-aIS"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="vKu-vW-BLG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="test_name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TjB-SA-nyj">
-                                <rect key="frame" x="16" y="20" width="84" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="test_handle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFT-BM-P6A">
-                                <rect key="frame" x="16" y="56" width="91" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jFy-HC-0xF">
-                                <rect key="frame" x="0.0" y="85" width="375" height="519"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="X89-KR-BZt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2816.8000000000002" y="68.815592203898049"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="Cmh-4c-bzf">
             <objects>
@@ -345,6 +306,67 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xj4-Al-1IZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1185" y="744"/>
+        </scene>
+        <!--View Friend View Controller-->
+        <scene sceneID="CHX-te-B0d">
+            <objects>
+                <viewController id="eWE-qE-eK6" customClass="viewFriendViewController" customModule="SocialNetworkApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5fR-gQ-VSC"/>
+                        <viewControllerLayoutGuide type="bottom" id="HN8-pR-Usu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zab-AI-anw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="user name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALB-fx-O5l">
+                                <rect key="frame" x="91" y="145" width="193" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsN-8r-rmC">
+                                <rect key="frame" x="144" y="423" width="86" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Message"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pAV-FT-B5w">
+                                <rect key="frame" x="144" y="344" width="86" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Follow"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rnf-sl-Y0j">
+                                <rect key="frame" x="144" y="267" width="86" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add Friend"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="user handle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4K9-S4-R4T">
+                                <rect key="frame" x="127" y="195" width="120" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ibH-dI-mTl">
+                                <rect key="frame" x="147" y="38" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="addFriendButton" destination="rnf-sl-Y0j" id="Ror-Vt-W5p"/>
+                        <outlet property="followButton" destination="pAV-FT-B5w" id="eS6-PL-mCa"/>
+                        <outlet property="msgButton" destination="WsN-8r-rmC" id="W5i-SG-kAZ"/>
+                        <outlet property="proPic" destination="ibH-dI-mTl" id="OjJ-19-cwt"/>
+                        <outlet property="userHandle" destination="4K9-S4-R4T" id="VEl-PR-zwL"/>
+                        <outlet property="userName" destination="ALB-fx-O5l" id="bln-3P-P51"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gph-5M-daT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-830" y="370"/>
         </scene>
         <!--Me-->
         <scene sceneID="G53-ot-RCn">
@@ -785,6 +807,7 @@
                         <outlet property="interests" destination="a3X-kO-c0t" id="eRk-SG-MVX"/>
                         <outlet property="profession" destination="PQH-Na-3AG" id="Mrx-pL-TYA"/>
                         <segue destination="49e-Tb-3d3" kind="presentation" identifier="HomeViewSegue" id="gDp-pl-5cF"/>
+                        <segue destination="eWE-qE-eK6" kind="presentation" identifier="setupToFriend" id="Y2M-88-K56"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mTX-uL-OEV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -856,6 +879,7 @@
                     <connections>
                         <outlet property="email" destination="rKw-tl-GMI" id="xz6-IS-twh"/>
                         <outlet property="errorMsg" destination="AvA-6u-iNs" id="DcO-w0-ttA"/>
+                        <outlet property="loginButton" destination="hPj-lY-et7" id="KbP-dp-zOY"/>
                         <outlet property="password" destination="GrQ-7e-dsI" id="RD5-6f-Jrg"/>
                         <segue destination="49e-Tb-3d3" kind="presentation" identifier="HomeViewSegue" id="GVr-7q-XBe"/>
                         <segue destination="Dea-im-nI8" kind="presentation" identifier="loginToSetup" id="yd9-UY-ERu"/>
@@ -933,9 +957,9 @@
         <image name="wallpaper" width="2560" height="1600"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GVr-7q-XBe"/>
+        <segue reference="gDp-pl-5cF"/>
+        <segue reference="yd9-UY-ERu"/>
         <segue reference="4om-SA-w39"/>
-        <segue reference="bo5-KD-njd"/>
         <segue reference="ocn-g9-MoH"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -62,11 +62,21 @@ class ProfileSetupViewController: UIViewController {
                     
                     self.rootRef.child("handles").child(self.handle.text!.lowercased()).setValue(self.user?.uid)
                     
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("follower_list")
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("following_list")
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("freq_rcv")
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("freq_sent")
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("friend_list")
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("mailbox")
+                    
+                    
                     
                     
                     
                     //send the user to home screen
-                    self.performSegue(withIdentifier: "HomeViewSegue", sender: self)
+                    //self.performSegue(withIdentifier: "HomeViewSegue", sender: self)
+                    
+                    //sending user to friend's profile
                     
                     
                 }
@@ -111,6 +121,14 @@ class ProfileSetupViewController: UIViewController {
         alert1.addAction(action1)
         
         self.present(alert1, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "setupToFriend" {
+            let fvc = segue.destination as! viewFriendViewController
+            fvc.friendKey = "nZ4A9gYjRSWr5AogmyUEckqiGsA3"
+        }
     }
 
     
