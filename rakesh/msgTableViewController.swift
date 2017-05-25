@@ -40,6 +40,8 @@ class msgTableViewController: UIViewController, UITableViewDelegate, UITableView
     func addNew(mail: msgItem) {
         array.append(mail)
         tableView.reloadData()
+        
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -114,73 +116,47 @@ class msgTableViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         rootRef = FIRDatabase.database().reference()
 
+        //let m1 = msgItem(from: "u1",to: "u2", sub: "When are you coming?", body: "Default body")
+        //self.array.append(m1)
+        
         
         FIRAuth.auth()?.signIn(withEmail: self.email, password: self.password, completion: { (user, error) in
             if(error == nil){
                 
                 print ("Successful")
-                /*
-                let msgRef = self.rootRef.child("msg")
-                
-                msgRef.child(FIRAuth.auth()!.currentUser!.uid).child("msg").observeEventType(of: .value, with: {(snapshot) in
-                    
-                    
-                    if snapshot.exists(){
-                        
-                        if let msgDictionary = snapshot.Value as! NSMutableDictionary{
-                            
-                            for each in msgDictionary as! [String : AnyObject]{
-                                
-                                let friendsId = each.0 as! String
-                                
-                                parentRef.child(friendId).observeEventType(.Value, withBlock: {(friendDictionary)
-                                    
-                                    if let friendsInfo = friendDictionary.Value as! NSMutableDictionary{
-                                       
-                                    }
-                                })
-                            }
-                        }
-                    }
-                })
- */
-                
-                //print(msgList)
-                
-                /*
                 self.userID = (FIRAuth.auth()?.currentUser?.uid)!
                 
                 self.rootRef.child("users").child(self.userID).observeSingleEvent(of: .value, with: { (snapshot) in
                     let value = snapshot.value as? NSDictionary
-                    self.toTextField.text = value?["msg"] as? String ?? ""
+                    let fl = value?["mailbox"] as! NSArray
                     
-                    print(self.toTextField.text)
- 
-                   
+                    var elem:NSDictionary
+                    
+                    for element in fl {
+                        elem = (element as? NSDictionary)!
+                        let item = msgItem(from: elem["from"]as! String ,to: elem["to"]as! String,sub: elem["sub"]as! String,body: elem["body"]as! String)
+                        self.array.append(item)
+                    
+                    }
+                    self.tableView.reloadData()
                 }) { (error) in
                     print(error.localizedDescription)
                 }
- 
                 
-                print (self.userID)
-                */
-                
-            }else{
-                var errorMsg = error?.localizedDescription
+            } else {
                 
             }
-        })
+        })//end of FIRauth
+            
+            
         
-        
-        
-        let m1 = msgItem(from: "u1",to: "u2", sub: "When are you coming?", body: "Default body")
+        //let m1 = msgItem(from: "u1",to: "u2", sub: "When are you coming?", body: "Default body")
         //let m2 = msgItem(from: "u1",to: "u2", sub: "When are you coming?", body: "Default body")
         
-        let m2 = msgItem(from: "u1",to: "u3", sub: "Invitation to course", body: "Default body")
-        
-
-        array.append(m1)
-        array.append(m2)
+        //let m2 = msgItem(from: "u1",to: "u3", sub: "Invitation to course", body: "Default body")
+    
+        //array.append(m1)
+        //array.append(m2)
         
         
     }

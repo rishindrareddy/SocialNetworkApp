@@ -19,10 +19,7 @@ class createMailViewController: UIViewController {
     
     //IBSoutlets
     @IBOutlet weak var toTextField: UITextField!
-    
-    
     @IBOutlet weak var mailBodyTextField: UITextView!
-    
     @IBOutlet weak var mailSubTextField: UITextField!
     
     
