@@ -22,12 +22,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     var imagePicker = UIImagePickerController()
     var loggedInUser: AnyObject? = .none
-    var databaseRef = FIRDatabase.database().reference()
-    var storageRef = FIRStorage.storage().reference()
+    var databaseRef = Database.database().reference()
+    var storageRef = Storage.storage().reference()
     
     @IBAction func didTapLogout(_ sender: Any) {
         
-        try! FIRAuth.auth()!.signOut()
+        try! Auth.auth().signOut()
         
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let welcomeViewController: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "welcomeViewController")
@@ -38,9 +38,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.loggedInUser = FIRAuth.auth()?.currentUser
+        self.loggedInUser = Auth.auth().currentUser
         
-        self.databaseRef.child("user_profiles").child(self.loggedInUser!.uid!).observeSingleEvent(of: .value) { (snapshot: FIRDataSnapshot) in
+        self.databaseRef.child("user_profiles").child(self.loggedInUser!.uid!).observeSingleEvent(of: .value) { (snapshot: DataSnapshot) in
         
             let snapshot = snapshot.value as AnyObject
             
@@ -148,20 +148,20 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
             let profilePicStorageRef = storageRef.child("user_profiles/\(self.loggedInUser!.uid!)/profile_pic")
             
-            let uploadTask = profilePicStorageRef.put(imageData as Data, metadata: nil)
-            {metadata, error in
-            
-                if (error == nil){
-                
-                    let downloadURL = metadata!.downloadURL()
-                    self.databaseRef.child("user_profiles").child(self.loggedInUser!.uid!).child("profile_pic").setValue(downloadURL!.absoluteString)
-                
-                }
-                else {
-                
-                    print(error?.localizedDescription as Any)
-                }
-            }
+//            let uploadTask = profilePicStorageRef.put(imageData as Data, metadata: nil)
+//            {metadata, error in
+//            
+//                if (error == nil){
+//                
+//                    let downloadURL = metadata!.downloadURL()
+//                    self.databaseRef.child("user_profiles").child(self.loggedInUser!.uid!).child("profile_pic").setValue(downloadURL!.absoluteString)
+//                
+//                }
+//                else {
+//                
+//                    print(error?.localizedDescription as Any)
+//                }
+//            }
         self.dismiss(animated: true, completion: nil)
         
     

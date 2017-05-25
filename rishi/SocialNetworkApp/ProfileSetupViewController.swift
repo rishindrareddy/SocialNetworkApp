@@ -21,7 +21,7 @@ class ProfileSetupViewController: UIViewController {
     @IBOutlet weak var errorMessage: UILabel!
     
     var user: AnyObject? = .none
-    var rootRef = FIRDatabase.database().reference()
+    var rootRef = Database.database().reference()
     
     @IBAction func didTapCancel(_ sender: Any) {
         
@@ -30,50 +30,61 @@ class ProfileSetupViewController: UIViewController {
     }
     @IBAction func didTapGetStarted(_ sender: Any) {
         
-        let handle = self.rootRef.child("handles").child(self.handle.text!).observeSingleEvent(of: .value, with: {(snapshot:FIRDataSnapshot) in
+        //required feilds name and handle
+        if ((self.handle.text?.characters.count)! > 0) && ((self.fullName.text?.characters.count)! > 0) {
             
-            if(!snapshot.exists())
-            {
-                //update the handle in the user_profiles and in the handles node
+            self.rootRef.child("handles").child(self.handle.text!).observeSingleEvent(of: .value, with: {(snapshot:DataSnapshot) in
                 
-                self.rootRef.child("user_profiles").child(self.user!.uid).child("handle").setValue(self.handle.text!.lowercased())
+                if(!snapshot.exists())
+                {
+                    //update the handle in the user_profiles and in the handles node
+                    
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("handle").setValue(self.handle.text!.lowercased())
+                    
+                    //update the name of the user
+                    
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("name").setValue(self.fullName.text!)
+                    
+                    //update about of the user
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("about").setValue(self.aboutMe.text!)
+                    
+                    
+                    //update profession of the user
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("profession").setValue(self.profession.text!)
+                    
+                    //update interests of the user
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("interests").setValue(self.profession.text!)
+                    
+                    //update address of the user
+                    self.rootRef.child("user_profiles").child(self.user!.uid).child("address").setValue(self.profession.text!)
+                    
+                    //update the handle in the handle node
+                    
+                    self.rootRef.child("handles").child(self.handle.text!.lowercased()).setValue(self.user?.uid)
+                    
+                    
+                    
+                    
+                    //send the user to home screen
+                    self.performSegue(withIdentifier: "HomeViewSegue", sender: self)
+                    
+                    
+                }
+                else
+                {
+                    self.errorMessage.text = "Handle already in use!"
+                    self.giveAlert(" Handle already exists !!!")
+                }
                 
-                //update the name of the user
                 
-                self.rootRef.child("user_profiles").child(self.user!.uid).child("name").setValue(self.fullName.text!)
-                
-                //update about of the user
-                self.rootRef.child("user_profiles").child(self.user!.uid).child("about").setValue(self.aboutMe.text!)
-                
-
-                //update profession of the user
-                self.rootRef.child("user_profiles").child(self.user!.uid).child("profession").setValue(self.profession.text!)
-                
-                //update interests of the user
-                self.rootRef.child("user_profiles").child(self.user!.uid).child("interests").setValue(self.profession.text!)
-                
-                //update address of the user
-                self.rootRef.child("user_profiles").child(self.user!.uid).child("address").setValue(self.profession.text!)
-                
-                //update the handle in the handle node
-                
-                self.rootRef.child("handles").child(self.handle.text!.lowercased()).setValue(self.user?.uid)
-                
-                
-                
-                
-                //send the user to home screen
-                self.performSegue(withIdentifier: "HomeViewSegue", sender: nil)
-                
-                
-            }
-            else
-            {
-                self.errorMessage.text = "Handle already in use!"
-            }
+            })
+        }
+        else {
             
+            giveAlert(" Please enter handle and full name !")
             
-        })
+        }
+        
         
         
     }
@@ -81,7 +92,7 @@ class ProfileSetupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-      self.user = FIRAuth.auth()?.currentUser
+      self.user = Auth.auth().currentUser
         
         
     }
@@ -90,6 +101,18 @@ class ProfileSetupViewController: UIViewController {
         super.didReceiveMemoryWarning()
         
     }
+    
+    func giveAlert (_ msg : String) {
+        //pop an alert
+        let alert1 = UIAlertController(title: "Oops!", message: msg , preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        let action1 = UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.default , handler: nil)
+        
+        alert1.addAction(action1)
+        
+        self.present(alert1, animated: true, completion: nil)
+    }
+
     
 
 }

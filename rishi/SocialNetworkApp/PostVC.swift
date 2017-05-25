@@ -13,7 +13,7 @@ import FirebaseStorage
 
 class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var databaseRef = FIRDatabase.database().reference()
+    var databaseRef = Database.database().reference()
     var loggedInUser: AnyObject? = .none
    
     @IBOutlet weak var btnPostIt: UIStackView!
@@ -22,7 +22,7 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.loggedInUser = FIRAuth.auth()?.currentUser
+        self.loggedInUser = Auth.auth().currentUser
         
         messageText.textContainerInset = UIEdgeInsetsMake(30, 20, 20, 20)
         messageText.text = "Hello, what's happening?"
@@ -138,7 +138,7 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
         //create a unique auto generated key from firebase database
         let key = self.databaseRef.child("posts").childByAutoId().key
         
-        let storageRef = FIRStorage.storage().reference()
+        let storageRef = Storage.storage().reference()
         let pictureStorageRef = storageRef.child("user_profiles/\(self.loggedInUser!.uid!)/media/\(key)")
         
         //reduce resolution of selected picture
@@ -148,23 +148,23 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
         //user has entered text and an image
         if(postLength>0 && numImages>0)
         {
-            let uploadTask = pictureStorageRef.put(lowResImageData!,metadata: nil)
-            {metadata,error in
-                
-                if(error == nil)
-                {
-                    let downloadUrl = metadata!.downloadURL()
-                    
-                    let childUpdates = ["/posts/\(self.loggedInUser!.uid!)/\(key)/text":self.messageText.text,
-                                        "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)",
-                        "/posts/\(self.loggedInUser!.uid!)/\(key)/picture":downloadUrl!.absoluteString] as [String : Any]
-                    
-                    self.databaseRef.updateChildValues(childUpdates)
-                }
-                
-            }
-            
-            dismiss(animated: true, completion: nil)
+//            let uploadTask = pictureStorageRef.put(lowResImageData!,metadata: nil)
+//            {metadata,error in
+//                
+//                if(error == nil)
+//                {
+//                    let downloadUrl = metadata!.downloadURL()
+//                    
+//                    let childUpdates = ["/posts/\(self.loggedInUser!.uid!)/\(key)/text":self.messageText.text,
+//                                        "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)",
+//                        "/posts/\(self.loggedInUser!.uid!)/\(key)/picture":downloadUrl!.absoluteString] as [String : Any]
+//                    
+//                    self.databaseRef.updateChildValues(childUpdates)
+//                }
+//                
+//            }
+//            
+//            dismiss(animated: true, completion: nil)
         }
         
             //user has entered only text
@@ -181,27 +181,27 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
             //user has entered only an image
         else if(numImages>0)
         {
-            let uploadTask = pictureStorageRef.put(lowResImageData!,metadata: nil)
-            {metadata,error in
-                
-                if(error == nil)
-                {
-                    let downloadUrl = metadata!.downloadURL()
-                    
-                    let childUpdates = [
-                        "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)",
-                        "/posts/\(self.loggedInUser!.uid!)/\(key)/picture":downloadUrl!.absoluteString]
-                    
-                    self.databaseRef.updateChildValues(childUpdates)
-                }
-                else
-                {
-                    print(error?.localizedDescription)
-                }
-                
-            }
-            
-            dismiss(animated: true, completion: nil)
+//            let uploadTask = pictureStorageRef.put(lowResImageData!,metadata: nil)
+//            {metadata,error in
+//                
+//                if(error == nil)
+//                {
+//                    let downloadUrl = metadata!.downloadURL()
+//                    
+//                    let childUpdates = [
+//                        "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)",
+//                        "/posts/\(self.loggedInUser!.uid!)/\(key)/picture":downloadUrl!.absoluteString]
+//                    
+//                    self.databaseRef.updateChildValues(childUpdates)
+//                }
+//                else
+//                {
+//                    print(error?.localizedDescription)
+//                }
+//                
+//            }
+//            
+//            dismiss(animated: true, completion: nil)
             
         }
         

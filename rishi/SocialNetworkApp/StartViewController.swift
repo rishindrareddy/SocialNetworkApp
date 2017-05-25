@@ -15,7 +15,7 @@ class StartViewController: UIViewController {
         super.viewDidLoad()
     
         
-        FIRAuth.auth()?.addStateDidChangeListener({ (auth, user) in
+        Auth.auth().addStateDidChangeListener({ (auth, user) in
             
             if let currentUser = user{
                 
