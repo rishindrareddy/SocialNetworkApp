@@ -66,6 +66,10 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
         
     }
     
+    @IBAction func didTapCancel(_ sender: Any) {
+        
+       dismiss(animated: true, completion: nil)
+    }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         
@@ -87,12 +91,6 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
         textAttachment.image = UIImage.init(cgImage: (textAttachment.image?.cgImage)!, scale: scaleFactor, orientation: .up)
        
         let attrStringWithImage = NSAttributedString(attachment: textAttachment)
-//        let combination = NSMutableAttributedString()
-//        combination.append(attributedString)
-//        combination.append(attrStringWithImage)
-//       
-//        messageText.attributedText = combination
-        
         attributedString.append(attrStringWithImage)
         messageText.attributedText = attributedString
         print(messageText)
@@ -161,6 +159,10 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
                     
                     self.databaseRef.updateChildValues(childUpdates)
                 }
+                else
+                {
+                    print(error?.localizedDescription)
+                }
                 
             }
             
@@ -201,23 +203,13 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
                 
             }
             
-            dismiss(animated: true, completion: nil)
+           dismiss(animated: true, completion: nil)
             
         }
         
+       // performSegue(withIdentifier: "postToHome", sender: self)
+  
         
-        
-//        if messageText.text.characters.count>0 {
-//            
-//            let key = self.databaseRef.child("posts").childByAutoId().key
-//           
-//            let childUpdates = ["/posts/\(self.loggedInUser!.uid!)/\(key)/text":messageText.text,
-//                                "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)"] as [String : Any]
-// 
-//            self.databaseRef.updateChildValues(childUpdates)
-//            
-//            dismiss(animated: true, completion: nil)
-//            }
         
         }
     
