@@ -26,7 +26,7 @@ class createMailViewController: UIViewController {
     
     //IBSAction
     @IBAction func sendMail(_ sender: Any) {
-        let m = msgItem(from: "u1", to: toTextField.text!, sub: mailSubTextField.text!, body:  mailBodyTextField.text! )
+        let m = msgItem(from: "", to: toTextField.text!, sub: mailSubTextField.text!, body:  mailBodyTextField.text!, id: "" )
         
         delegate.addNew(mail: m)
         navigationController?.popViewController(animated: true)

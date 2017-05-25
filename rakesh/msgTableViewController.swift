@@ -20,7 +20,7 @@ class msgTableViewController: UIViewController, UITableViewDelegate, UITableView
     var userID: String = ""
     var email = "mypersonalbox6@gmail.com"
     var password = "123456"
-    
+    var handle = ""
     
     @IBOutlet weak var toTextField: UITextField!
     @IBOutlet weak var fromTextField: UITextField!
@@ -38,9 +38,96 @@ class msgTableViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     
     func addNew(mail: msgItem) {
-        array.append(mail)
-        tableView.reloadData()
+//        mail.from = self.handle
+//        array.append(mail)
+//        tableView.reloadData()
         
+        FIRAuth.auth()?.signIn(withEmail: self.email, password: self.password, completion: { (user, error) in
+            if(error == nil){
+                
+                print ("Successful")
+                self.userID = (FIRAuth.auth()?.currentUser?.uid)!
+                self.rootRef.child("users").child(self.userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                    let value = snapshot.value as? NSDictionary
+                    self.handle = value?["handle"] as? String ?? ""
+                    
+                    var  elem:NSMutableDictionary = [:]
+                    
+                    
+                    elem.setValue(self.handle, forKey: "from")
+                    elem.setValue(mail.to, forKey: "to")
+                    elem.setValue(mail.sub, forKey: "sub")
+                    elem.setValue(mail.body, forKey: "body")
+                    
+                    
+                    
+                    //self.rootRef.child("users").child(self.userID).child("mailbox").childByAutoId().setValue(elem)
+                    
+                    let key = self.rootRef.child("users").child(self.userID).child("mailbox").childByAutoId().key
+                    
+                    self.rootRef.child("users").child(self.userID).child("mailbox").child(key).setValue(elem)
+                    
+                    
+                    mail.from = self.handle
+                    mail.id = key
+                    self.array.append(mail)
+                    self.tableView.reloadData()
+                    
+                    
+                }){ (error) in
+                    print(error.localizedDescription)
+                }
+                //self.handle = value?["handle"] as? String ?? ""
+                
+//                var  elem:NSMutableDictionary = [:]
+//                
+//                
+//                elem.setValue(self.handle, forKey: "from")
+//                elem.setValue(mail.to, forKey: "to")
+//                elem.setValue(mail.sub, forKey: "sub")
+//                elem.setValue(mail.body, forKey: "body")
+//                
+//                
+//                
+//                self.rootRef.child("users").child(self.userID).child("mailbox").childByAutoId().setValue(elem)
+//                
+                /*
+                self.rootRef.child("users").child(self.userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                    let value = snapshot.value as? NSMutableDictionary
+                    let fl = value?["mailbox"] as! NSMutableArray
+                    
+                    var elem:NSMutableDictionary
+                    //var item = msgItem(from: mail.from ,to: mail.to,sub: mail.sub,body: mail.body)
+                    elem.setValue(mail.from, forKey: "from")
+                    elem.setValue(mail.to, forKey: "to")
+                    elem.setValue(mail.sub, forKey: "sub")
+                    elem.setValue(mail.body, forKey: "body")
+                    
+                   
+                    
+                    //for element in fl {
+                      //  elem = (element as? NSDictionary)!
+                        let item = msgItem(from: mail.from ,to: mail.to,sub: mail.sub,body: mail.body)
+                       // self.array.append(item)
+                        
+                    //}
+                    //self.tableView.reloadData()
+                    
+                    
+                    fl.add(item)
+                    
+                    print(fl)
+
+                    
+                }) { (error) in
+                    print(error.localizedDescription)
+                }
+            
+            */
+            } else {
+                
+            }
+        })//end of FIRauth
         
     }
     
@@ -79,8 +166,26 @@ class msgTableViewController: UIViewController, UITableViewDelegate, UITableView
    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            array.remove(at: indexPath.row)
-            tableView.reloadData()
+            
+            // Remove from firebase
+            FIRAuth.auth()?.signIn(withEmail: self.email, password: self.password, completion: { (user, error) in
+                if(error == nil){
+                    self.userID = (FIRAuth.auth()?.currentUser?.uid)!
+                    self.rootRef.child("users").child(self.userID).child("mailbox").child(self.array[indexPath.row].id).removeValue()
+                    
+                    self.array.remove(at: indexPath.row)
+                    self.tableView.reloadData()
+                    
+                } else {
+                    
+                    print("could not delete")
+                    
+                }
+                
+            })
+            
+//            array.remove(at: indexPath.row)
+//            tableView.reloadData()
             
         }
     }
@@ -120,24 +225,49 @@ class msgTableViewController: UIViewController, UITableViewDelegate, UITableView
         //self.array.append(m1)
         
         
+        
+        //Get the messages from users mailbox
         FIRAuth.auth()?.signIn(withEmail: self.email, password: self.password, completion: { (user, error) in
             if(error == nil){
                 
                 print ("Successful")
                 self.userID = (FIRAuth.auth()?.currentUser?.uid)!
+                //self.handle = value?["handle"] as? String ?? ""
                 
-                self.rootRef.child("users").child(self.userID).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let value = snapshot.value as? NSDictionary
-                    let fl = value?["mailbox"] as! NSArray
+                self.rootRef.child("users").child(self.userID).child("mailbox").observeSingleEvent(of: .value, with: { (snapshot) in
                     
-                    var elem:NSDictionary
                     
-                    for element in fl {
-                        elem = (element as? NSDictionary)!
-                        let item = msgItem(from: elem["from"]as! String ,to: elem["to"]as! String,sub: elem["sub"]as! String,body: elem["body"]as! String)
-                        self.array.append(item)
-                    
+                    for item in snapshot.children {
+                        
+                        let child = item as! FIRDataSnapshot
+                        let dict = child.value as! NSDictionary
+                        print(dict.value(forKey: "from")!)
+                        print(dict.value(forKey: "to")!)
+                        print(dict.value(forKey: "body")!)
+                        print(dict.value(forKey: "sub")!)
+                        
+                        let m = msgItem(from: dict.value(forKey: "from")! as! String,to: dict.value(forKey: "to")! as! String,sub: dict.value(forKey: "sub")! as! String,body: dict.value(forKey: "body")! as! String, id: child.key as! String)
+                        self.array.append(m)
+                        
+                        
+                        
+                        
                     }
+                    
+//                    let value = snapshot.value as? NSDictionary
+//                    let fl = value?["mailbox"] as! NSArray
+//                    
+//                    //Get the user handle
+//                    self.handle = value?["handle"] as? String ?? ""
+//                    
+//                    var elem:NSDictionary
+//                    
+//                    for element in fl {
+//                        elem = (element as? NSDictionary)!
+//                        let item = msgItem(from: elem["from"]as! String ,to: elem["to"]as! String,sub: elem["sub"]as! String,body: elem["body"]as! String)
+//                        self.array.append(item)
+//                    
+//                    }
                     self.tableView.reloadData()
                 }) { (error) in
                     print(error.localizedDescription)

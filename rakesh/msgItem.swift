@@ -14,14 +14,16 @@ class msgItem {
     var to   = ""
     var sub  = ""
     var body = ""
+    var id   = ""
     
     var completed = false
     
-    init(from: String, to: String, sub: String, body: String) {
+    init(from: String, to: String, sub: String, body: String, id: String) {
         self.from = from
         self.sub  = sub
         self.to   = to
         self.body = body
+        self.id   = id
     }
     
 }
