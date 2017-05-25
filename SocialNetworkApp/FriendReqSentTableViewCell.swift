@@ -1,17 +1,15 @@
 //
-//  FriendReqTableViewCell.swift
-//  
+//  FriendReqSentTableViewCell.swift
+//  SocialNetworkApp
 //
-//  Created by Siddhi Suthar on 5/24/17.
-//
+//  Created by Siddhi Suthar on 5/25/17.
+//  Copyright © 2017 Siddhi. All rights reserved.
 //
 
 import UIKit
 
-class FriendReqTableViewCell: UITableViewCell {
+class FriendReqSentTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var nameLabel: UILabel!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,10 +19,6 @@ class FriendReqTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }
-    public func configure(name:String)
-    {
-        self.nameLabel.text = name
     }
 
 }

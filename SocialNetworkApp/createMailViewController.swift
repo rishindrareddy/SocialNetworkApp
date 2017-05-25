@@ -24,6 +24,8 @@ class createMailViewController: UIViewController {
         let m = msgItem(from: "", to: toTextField.text!, sub: mailSubTextField.text!, body:  mailBodyTextField.text!, id: "" )
         
         delegate.addNew(mail: m)
+        performSegue(withIdentifier: "viewMessagesAfterCompose", sender: self)
+        
     }
     
     @IBAction func didTapCancel(_ sender: Any) {

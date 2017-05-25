@@ -32,6 +32,8 @@
 		FEFC2B721ED6B16A0034090E /* createMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFC2B711ED6B16A0034090E /* createMailViewController.swift */; };
 		FEFC2B741ED6B28A0034090E /* msgItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFC2B731ED6B28A0034090E /* msgItem.swift */; };
 		FEFC2B761ED6B2E90034090E /* ShowMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFC2B751ED6B2E90034090E /* ShowMailViewController.swift */; };
+		FEFC2B781ED765D50034090E /* FriendReqSentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFC2B771ED765D50034090E /* FriendReqSentTableViewCell.swift */; };
+		FEFC2B7A1ED766290034090E /* FriendReqSentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFC2B791ED766290034090E /* FriendReqSentTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +66,8 @@
 		FEFC2B711ED6B16A0034090E /* createMailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = createMailViewController.swift; sourceTree = "<group>"; };
 		FEFC2B731ED6B28A0034090E /* msgItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = msgItem.swift; sourceTree = "<group>"; };
 		FEFC2B751ED6B2E90034090E /* ShowMailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowMailViewController.swift; sourceTree = "<group>"; };
+		FEFC2B771ED765D50034090E /* FriendReqSentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendReqSentTableViewCell.swift; sourceTree = "<group>"; };
+		FEFC2B791ED766290034090E /* FriendReqSentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendReqSentTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,20 +123,22 @@
 				FEDA29451ECC25AB0012EBD2 /* Info.plist */,
 				FE3B0F711EBD3B620089C41E /* AppDelegate.swift */,
 				FE650CA31ED3A0BA007B73C8 /* StartViewController.swift */,
-				FEFC2B6B1ED6A5320034090E /* FriendReqTableViewCell.swift */,
 				FE14CF5D1ECC19B300195B37 /* SignUpViewController.swift */,
 				FE8E3AE21ED18DEC00A31C24 /* LoginViewController.swift */,
 				FE3B0F731EBD3B620089C41E /* FirstViewController.swift */,
-				FE3B0F751EBD3B620089C41E /* SecondViewController.swift */,
 				FE96AE8A1EC8F75900D9B37E /* PostVC.swift */,
 				FE96AE8C1EC9836E00D9B37E /* HomeViewTableViewCell.swift */,
 				FE650CA51ED3A9AA007B73C8 /* ProfileViewController.swift */,
 				FE3B0F771EBD3B620089C41E /* Main.storyboard */,
+				FE3B0F751EBD3B620089C41E /* SecondViewController.swift */,
+				FEFC2B6B1ED6A5320034090E /* FriendReqTableViewCell.swift */,
+				FEFC2B771ED765D50034090E /* FriendReqSentTableViewCell.swift */,
+				FEFC2B791ED766290034090E /* FriendReqSentTableViewController.swift */,
+				FEFC2B671ED6A2A10034090E /* FriendReqRecvViewController.swift */,
 				FEFC2B731ED6B28A0034090E /* msgItem.swift */,
 				FEFC2B751ED6B2E90034090E /* ShowMailViewController.swift */,
 				FEFC2B6F1ED6A9550034090E /* MessageViewController.swift */,
 				FEFC2B711ED6B16A0034090E /* createMailViewController.swift */,
-				FEFC2B671ED6A2A10034090E /* FriendReqRecvViewController.swift */,
 				FEFC2B651ED69B640034090E /* MyTimelineViewController.swift */,
 				FEFC2B631ED683610034090E /* EditProfileViewController.swift */,
 				FEFC2B611ED6797C0034090E /* SettingsViewController.swift */,
@@ -269,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEFC2B7A1ED766290034090E /* FriendReqSentTableViewController.swift in Sources */,
 				FE8E3AE31ED18DEC00A31C24 /* LoginViewController.swift in Sources */,
 				FEFC2B681ED6A2A10034090E /* FriendReqRecvViewController.swift in Sources */,
 				FE650CA41ED3A0BA007B73C8 /* StartViewController.swift in Sources */,
@@ -288,6 +295,7 @@
 				FEFC2B701ED6A9550034090E /* MessageViewController.swift in Sources */,
 				FE650CA81ED3C191007B73C8 /* ProfileSetupViewController.swift in Sources */,
 				FEFC2B6C1ED6A5320034090E /* FriendReqTableViewCell.swift in Sources */,
+				FEFC2B781ED765D50034090E /* FriendReqSentTableViewCell.swift in Sources */,
 				FE96AE8B1EC8F75900D9B37E /* PostVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

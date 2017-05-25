@@ -22,6 +22,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     var handle = ""
 
     
+    
     @IBOutlet weak var toTextField: UITextField!
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var subTextField: UITextField!
@@ -62,7 +63,6 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func addNew(mail: msgItem) {
         
-        
         self.databaseRef.child("user_profiles").child(self.loggedInUser!.uid!).observeSingleEvent(of: .value, with: { (snapshot) in
             
             let value = snapshot.value as? NSDictionary
@@ -92,6 +92,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         }){ (error) in
             print(error.localizedDescription)
         }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -100,7 +101,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "msgCell") as! UITableViewCell
+        let cell = self.msgTableView.dequeueReusableCell(withIdentifier: "cell") as! UITableViewCell
        
         let mail = self.msgArray[indexPath.row]
         
@@ -114,11 +115,19 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        tableView.deselectRow(at: indexPath, animated: true)
+        self.msgTableView.deselectRow(at: indexPath, animated: true)
         print("You selected cell #\(indexPath.row)!")
         
         performSegue(withIdentifier: "viewMessageSegue", sender: msgArray[indexPath.row])
         
+    }
+    
+    @IBAction func reloadMessages(_ sender: Any) {
+        
+      print("RELOADING DATA")
+        //self.viewDidLoad()
+       // self.msgTableView.reloadData()
+        print("after compose msgArray \(msgArray)")
     }
     
     //delete message
@@ -152,8 +161,8 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
             destVC2.subLabelText = temp?.sub as! String
             destVC2.mailBodyText = temp?.body as! String
             
-            
         }
+        
         
     }
     
