@@ -14,7 +14,7 @@ class StartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-      //  try! FIRAuth.auth()!.signOut()
+       // try! FIRAuth.auth()!.signOut()
         
         FIRAuth.auth()?.addStateDidChangeListener({ (auth, user) in
             

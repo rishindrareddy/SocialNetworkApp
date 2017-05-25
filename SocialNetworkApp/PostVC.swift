@@ -19,6 +19,8 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
     @IBOutlet weak var btnPostIt: UIStackView!
     @IBOutlet weak var messageText: UITextView!
     
+    var imagePicker = UIImagePickerController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,76 +42,8 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
         return false
     }
     
-    @IBAction func addPhoto(_ sender: Any) {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        
-        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
-        
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction) in
-            
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                imagePickerController.sourceType = .camera
-                self.present(imagePickerController, animated: true, completion: nil)
-            }else{
-                print("Camera not available")
-            }
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action:UIAlertAction) in
-            imagePickerController.sourceType = .photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(actionSheet, animated: true, completion: nil)
-        
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        
-        var attributedString = NSMutableAttributedString()
-        if messageText.text.characters.count>0 {
-            attributedString = NSMutableAttributedString(string: self.messageText.text)
-        }
-        else {
-            attributedString = NSMutableAttributedString(string: "Hello, what's up?")
-        }
-        
-        let textAttachment = NSTextAttachment()
-        
-        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        textAttachment.image = image
-        let oldWidth:CGFloat = textAttachment.image!.size.width
-        let scaleFactor:CGFloat = oldWidth/(messageText.frame.size.width-50)
-        
-        textAttachment.image = UIImage.init(cgImage: (textAttachment.image?.cgImage)!, scale: scaleFactor, orientation: .up)
-       
-        let attrStringWithImage = NSAttributedString(attachment: textAttachment)
-//        let combination = NSMutableAttributedString()
-//        combination.append(attributedString)
-//        combination.append(attrStringWithImage)
-//       
-//        messageText.attributedText = combination
-        
-        attributedString.append(attrStringWithImage)
-        messageText.attributedText = attributedString
-        print(messageText)
-        self.dismiss(animated: true, completion: nil)
-        
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     @IBAction func btnPostItClick(_ sender: Any) {
-     
+        
         var imagesArray = [AnyObject]()
         
         //extract the images from the attributed text
@@ -141,15 +75,12 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
         let storageRef = FIRStorage.storage().reference()
         let pictureStorageRef = storageRef.child("user_profiles/\(self.loggedInUser!.uid!)/media/\(key)")
         
-        //reduce resolution of selected picture
-        let lowResImageData = UIImageJPEGRepresentation(imagesArray[0] as! UIImage, 0.50)
-        
-        
         //user has entered text and an image
         if(postLength>0 && numImages>0)
         {
+            let lowResImageData = UIImageJPEGRepresentation(imagesArray[0] as! UIImage, 0.50)
             let uploadTask = pictureStorageRef.put(lowResImageData!,metadata: nil)
-            {metadata,error in
+            { metadata,error in
                 
                 if(error == nil)
                 {
@@ -161,12 +92,11 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
                     
                     self.databaseRef.updateChildValues(childUpdates)
                 }
-                
             }
             
             dismiss(animated: true, completion: nil)
         }
-        
+            
             //user has entered only text
         else if(postLength>0)
         {
@@ -181,6 +111,7 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
             //user has entered only an image
         else if(numImages>0)
         {
+            let lowResImageData = UIImageJPEGRepresentation(imagesArray[0] as! UIImage, 0.50)
             let uploadTask = pictureStorageRef.put(lowResImageData!,metadata: nil)
             {metadata,error in
                 
@@ -198,30 +129,65 @@ class PostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImage
                 {
                     print(error?.localizedDescription)
                 }
-                
             }
-            
             dismiss(animated: true, completion: nil)
-            
         }
         
+        // performSegue(withIdentifier: "postToHome", sender: self)
         
-        
-//        if messageText.text.characters.count>0 {
-//            
-//            let key = self.databaseRef.child("posts").childByAutoId().key
-//           
-//            let childUpdates = ["/posts/\(self.loggedInUser!.uid!)/\(key)/text":messageText.text,
-//                                "/posts/\(self.loggedInUser!.uid!)/\(key)/timestamp":"\(NSDate().timeIntervalSince1970)"] as [String : Any]
-// 
-//            self.databaseRef.updateChildValues(childUpdates)
-//            
-//            dismiss(animated: true, completion: nil)
-//            }
-        
-        }
-    
-
     }
+    
+    @IBAction func addPhoto(_ sender: Any) {
+        
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum)
+        {
+            self.imagePicker.delegate = self
+            self.imagePicker.sourceType = .savedPhotosAlbum
+            self.imagePicker.allowsEditing = true
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func didTapCancel(_ sender: Any) {
+        
+       dismiss(animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        
+        var attributedString = NSMutableAttributedString()
+        if messageText.text.characters.count>0 {
+            attributedString = NSMutableAttributedString(string: self.messageText.text)
+        }
+        else {
+            attributedString = NSMutableAttributedString(string: "Hello, what's up?")
+        }
+        
+        let textAttachment = NSTextAttachment()
+        
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        textAttachment.image = image
+        let oldWidth:CGFloat = textAttachment.image!.size.width
+        let scaleFactor:CGFloat = oldWidth/(messageText.frame.size.width-50)
+        
+        textAttachment.image = UIImage.init(cgImage: (textAttachment.image?.cgImage)!, scale: scaleFactor, orientation: .up)
+       
+        let attrStringWithImage = NSAttributedString(attachment: textAttachment)
+        attributedString.append(attrStringWithImage)
+        messageText.attributedText = attributedString
+        print(messageText)
+        self.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+}
     
 

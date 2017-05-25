@@ -22,6 +22,36 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var loading: UIActivityIndicatorView!
     var defaultImageViewHeightConstraint:CGFloat = 77.0
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.loggedInUser = FIRAuth.auth()?.currentUser
+        
+        self.databaseRef.child("user_profiles").child(self.loggedInUser!.uid!).observeSingleEvent(of: .value) { (snapshot:FIRDataSnapshot) in
+            
+            self.loggedInUserDetails = snapshot.value as AnyObject
+            
+            //get all the tweets that are made by the user
+            self.databaseRef.child("posts/\(self.loggedInUser!.uid!)").observe(.childAdded, with: { (snapshot:FIRDataSnapshot) in
+                
+                self.posts.append(snapshot.value as! NSDictionary)
+                
+                self.homeTableView.insertRows(at: [IndexPath(row:0, section: 0)] , with: UITableViewRowAnimation.automatic)
+                
+                self.loading.stopAnimating()
+                
+            }){(error) in
+                
+                print(error.localizedDescription)
+            }
+            
+        }
+        self.homeTableView.rowHeight = UITableViewAutomaticDimension
+        self.homeTableView.estimatedRowHeight = 140
+        
+        
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -85,35 +115,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         newImageView.addGestureRecognizer(tap)
         self.view.addSubview(newImageView)
     
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad() 
-        
-        self.loggedInUser = FIRAuth.auth()?.currentUser
-       
-        self.databaseRef.child("user_profiles").child(self.loggedInUser!.uid!).observeSingleEvent(of: .value) { (snapshot:FIRDataSnapshot) in
-           
-            self.loggedInUserDetails = snapshot.value as AnyObject
-            
-            //get all the tweets that are made by the user
-             self.databaseRef.child("posts/\(self.loggedInUser!.uid!)").observe(.childAdded, with: { (snapshot:FIRDataSnapshot) in
-             
-             self.posts.append(snapshot.value as! NSDictionary)
-
-             self.homeTableView.insertRows(at: [IndexPath(row:0, section: 0)] , with: UITableViewRowAnimation.automatic)
-             
-             self.loading.stopAnimating()
-                
-             }){(error) in
-             
-             print(error.localizedDescription)
-             }
-            
-        }
-        self.homeTableView.rowHeight = UITableViewAutomaticDimension
-        self.homeTableView.estimatedRowHeight = 140
-
-        
     }
     
     func dismissFullScreenImage(sender:UITapGestureRecognizer)
