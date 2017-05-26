@@ -229,21 +229,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKG-9S-ToV">
-                                <rect key="frame" x="0.0" y="4" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="6" width="375" height="44"/>
                                 <items>
-                                    <navigationItem title="Friend Request Notifications" id="BeG-e5-Y1I">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="1FH-3S-ILr">
-                                            <connections>
-                                                <action selector="didTapBack:" destination="8rJ-Kc-sve" id="1LJ-Ex-4UT"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
+                                    <navigationItem title="Friend Request Notifications" id="BeG-e5-Y1I"/>
                                 </items>
                             </navigationBar>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="spm-5L-MVD">
-                                <rect key="frame" x="0.0" y="73" width="375" height="29"/>
+                                <rect key="frame" x="0.0" y="75" width="375" height="29"/>
                                 <segments>
-                                    <segment title="Requests"/>
+                                    <segment title="Received"/>
                                     <segment title="Sent"/>
                                 </segments>
                                 <connections>
@@ -251,13 +245,13 @@
                                 </connections>
                             </segmentedControl>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hwk-Xv-eJ1">
-                                <rect key="frame" x="0.0" y="101" width="375" height="517"/>
+                                <rect key="frame" x="0.0" y="103" width="375" height="515"/>
                                 <connections>
                                     <segue destination="NgK-0E-JOW" kind="embed" id="CRr-Uf-rNh"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p5V-t1-hrv">
-                                <rect key="frame" x="0.0" y="101" width="375" height="527"/>
+                                <rect key="frame" x="0.0" y="103" width="375" height="525"/>
                                 <connections>
                                     <segue destination="3vZ-58-NvF" kind="embed" id="mrY-5c-yq9"/>
                                 </connections>
@@ -272,13 +266,15 @@
                             <constraint firstItem="spm-5L-MVD" firstAttribute="trailing" secondItem="hwk-Xv-eJ1" secondAttribute="trailing" id="McZ-mc-Rj6"/>
                             <constraint firstItem="DKG-9S-ToV" firstAttribute="leading" secondItem="spm-5L-MVD" secondAttribute="leading" id="YEg-Vg-QRg"/>
                             <constraint firstAttribute="trailing" secondItem="DKG-9S-ToV" secondAttribute="trailing" id="cfv-iq-MDR"/>
+                            <constraint firstItem="DKG-9S-ToV" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="dF6-kw-L9w"/>
                             <constraint firstItem="DKG-9S-ToV" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="hwG-bR-ycs"/>
                             <constraint firstItem="p5V-t1-hrv" firstAttribute="leading" secondItem="hwk-Xv-eJ1" secondAttribute="leading" id="jhf-Bt-eq5"/>
-                            <constraint firstItem="DKG-9S-ToV" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="topMargin" constant="4" id="jr4-I0-SSI"/>
                             <constraint firstItem="hwk-Xv-eJ1" firstAttribute="bottom" secondItem="Djb-ko-YwX" secondAttribute="top" id="lbg-Qo-Pnh"/>
                             <constraint firstItem="hwk-Xv-eJ1" firstAttribute="top" secondItem="spm-5L-MVD" secondAttribute="bottom" id="o0V-Zc-YeR"/>
+                            <constraint firstAttribute="trailing" secondItem="DKG-9S-ToV" secondAttribute="trailing" id="sFW-m1-liz"/>
                             <constraint firstItem="spm-5L-MVD" firstAttribute="leading" secondItem="hwk-Xv-eJ1" secondAttribute="leading" id="tXk-9N-DOI"/>
                             <constraint firstItem="DKG-9S-ToV" firstAttribute="trailing" secondItem="spm-5L-MVD" secondAttribute="trailing" id="x8a-9N-LSO"/>
+                            <constraint firstItem="DKG-9S-ToV" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" constant="6" id="y3d-rE-Rmx"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Notifications" image="Notification-25" selectedImage="Notification-25" id="cPa-gy-q4n"/>
@@ -289,7 +285,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1888.8" y="-58.020989505247378"/>
+            <point key="canvasLocation" x="2828" y="-58.020989505247378"/>
         </scene>
         <!--Find Users-->
         <scene sceneID="3hE-Kg-DgY">
@@ -323,6 +319,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Nvm-EW-XEC" kind="show" identifier="viewFriendProfile" id="xG4-1Z-T6j"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -343,7 +342,85 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KVk-qF-PUF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3762" y="18"/>
+            <point key="canvasLocation" x="4700" y="17.541229385307346"/>
+        </scene>
+        <!--View Friend View Controller-->
+        <scene sceneID="0v3-7e-g1c">
+            <objects>
+                <viewController id="Nvm-EW-XEC" customClass="viewFriendViewController" customModule="SocialNetworkApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VBY-0Z-U43"/>
+                        <viewControllerLayoutGuide type="bottom" id="w2X-V1-FNN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="24T-Yc-5m8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="07t-pi-X0H">
+                                <rect key="frame" x="16" y="106" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User handle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RE7-Bf-Z2G">
+                                <rect key="frame" x="16" y="143" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTO-hX-tTU">
+                                <rect key="frame" x="16" y="302" width="343" height="30"/>
+                                <state key="normal" title="Add Friend"/>
+                                <connections>
+                                    <action selector="addFriendClicked:" destination="Nvm-EW-XEC" eventType="touchUpInside" id="lcu-KY-v95"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Noo-X3-7aq">
+                                <rect key="frame" x="23" y="354" width="329" height="30"/>
+                                <state key="normal" title="Follow"/>
+                                <connections>
+                                    <action selector="followClicked:" destination="Nvm-EW-XEC" eventType="touchUpInside" id="dag-tE-xDS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geA-by-a7S">
+                                <rect key="frame" x="23" y="412" width="329" height="30"/>
+                                <state key="normal" title="Message"/>
+                                <connections>
+                                    <action selector="messageClicked:" destination="Nvm-EW-XEC" eventType="touchUpInside" id="k7U-10-O9r"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="w2X-V1-FNN" firstAttribute="top" secondItem="geA-by-a7S" secondAttribute="bottom" constant="225" id="96P-9d-FHS"/>
+                            <constraint firstItem="RE7-Bf-Z2G" firstAttribute="trailing" secondItem="hTO-hX-tTU" secondAttribute="trailing" id="Fxl-sS-x79"/>
+                            <constraint firstItem="07t-pi-X0H" firstAttribute="top" secondItem="VBY-0Z-U43" secondAttribute="bottom" constant="42" id="HDy-8y-dC0"/>
+                            <constraint firstItem="Noo-X3-7aq" firstAttribute="leading" secondItem="geA-by-a7S" secondAttribute="leading" id="HfM-bQ-ggA"/>
+                            <constraint firstItem="RE7-Bf-Z2G" firstAttribute="top" secondItem="07t-pi-X0H" secondAttribute="bottom" constant="16" id="HuG-Il-gFt"/>
+                            <constraint firstItem="hTO-hX-tTU" firstAttribute="centerX" secondItem="Noo-X3-7aq" secondAttribute="centerX" id="R09-cA-p0M"/>
+                            <constraint firstItem="07t-pi-X0H" firstAttribute="leading" secondItem="24T-Yc-5m8" secondAttribute="leadingMargin" id="TWB-Ia-Df4"/>
+                            <constraint firstItem="07t-pi-X0H" firstAttribute="trailing" secondItem="24T-Yc-5m8" secondAttribute="trailingMargin" id="aAO-lF-cmZ"/>
+                            <constraint firstItem="Noo-X3-7aq" firstAttribute="trailing" secondItem="geA-by-a7S" secondAttribute="trailing" id="eDI-ir-LUO"/>
+                            <constraint firstItem="Noo-X3-7aq" firstAttribute="leading" secondItem="24T-Yc-5m8" secondAttribute="leadingMargin" constant="7" id="eiQ-nC-Uhg"/>
+                            <constraint firstItem="07t-pi-X0H" firstAttribute="leading" secondItem="RE7-Bf-Z2G" secondAttribute="leading" id="fNq-GJ-CQC"/>
+                            <constraint firstItem="RE7-Bf-Z2G" firstAttribute="leading" secondItem="hTO-hX-tTU" secondAttribute="leading" id="h45-lM-xyh"/>
+                            <constraint firstItem="geA-by-a7S" firstAttribute="top" secondItem="Noo-X3-7aq" secondAttribute="bottom" constant="28" id="njK-HN-m3l"/>
+                            <constraint firstItem="07t-pi-X0H" firstAttribute="trailing" secondItem="RE7-Bf-Z2G" secondAttribute="trailing" id="oMk-RA-Ykn"/>
+                            <constraint firstItem="Noo-X3-7aq" firstAttribute="top" secondItem="hTO-hX-tTU" secondAttribute="bottom" constant="22" id="pXX-r2-oYJ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="W1H-5l-v1g"/>
+                    <connections>
+                        <outlet property="addFriendButton" destination="hTO-hX-tTU" id="xf7-Jz-Lzl"/>
+                        <outlet property="followButton" destination="Noo-X3-7aq" id="wqU-Hg-h7b"/>
+                        <outlet property="handleLabel" destination="RE7-Bf-Z2G" id="4aa-I7-C0P"/>
+                        <outlet property="messageButton" destination="geA-by-a7S" id="Vsv-nJ-bjm"/>
+                        <outlet property="nameLabel" destination="07t-pi-X0H" id="mbJ-zL-LKC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IRz-Cz-MMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5704.8000000000002" y="59.820089955022496"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="Cmh-4c-bzf">
@@ -433,24 +510,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NND-XP-Kw2">
-                                <rect key="frame" x="0.0" y="6" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="Mailbox" id="Kdg-M1-T10">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="LZE-JY-MUm">
-                                            <connections>
-                                                <action selector="reloadMessages:" destination="riA-wn-jz8" id="zka-2v-6hW"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="aAf-qO-RKY">
-                                            <connections>
-                                                <action selector="composeMessage:" destination="riA-wn-jz8" id="3uy-yq-D9G"/>
-                                                <segue destination="3Iv-h5-bmn" kind="presentation" identifier="createMailSegue" id="apa-Px-Dbh"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c0g-Je-Kqa">
                                 <rect key="frame" x="0.0" y="50" width="375" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -485,15 +544,35 @@
                                     <outlet property="dataSource" destination="riA-wn-jz8" id="IrN-zc-V06"/>
                                 </connections>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="caU-rI-dwO">
+                                <rect key="frame" x="0.0" y="6" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Messages" id="ASt-9h-bFK">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="UAy-eX-nJ4">
+                                            <connections>
+                                                <action selector="reloadData:" destination="riA-wn-jz8" id="RhH-zg-zX8"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="HP0-gh-AkR">
+                                            <connections>
+                                                <segue destination="3Iv-h5-bmn" kind="presentation" identifier="createMailSegue" id="s4o-X6-mhH"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="NND-XP-Kw2" firstAttribute="leading" secondItem="I23-Px-yPL" secondAttribute="leading" id="2w5-sH-nBb"/>
-                            <constraint firstAttribute="trailing" secondItem="NND-XP-Kw2" secondAttribute="trailing" id="CUk-hw-rjm"/>
-                            <constraint firstItem="NND-XP-Kw2" firstAttribute="top" secondItem="I23-Px-yPL" secondAttribute="top" constant="6" id="YbW-vl-Qeg"/>
+                            <constraint firstItem="caU-rI-dwO" firstAttribute="top" secondItem="I23-Px-yPL" secondAttribute="top" constant="6" id="8DQ-Rg-U1B"/>
+                            <constraint firstAttribute="trailing" secondItem="caU-rI-dwO" secondAttribute="trailing" id="9ik-Uw-OQC"/>
+                            <constraint firstItem="caU-rI-dwO" firstAttribute="leading" secondItem="I23-Px-yPL" secondAttribute="leading" id="LnY-QE-TK7"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Messages" image="Message-25" selectedImage="Message-25" id="KUA-Tl-bFu"/>
+                    <tabBarItem key="tabBarItem" title="Messages" image="Message-25" id="NPJ-0d-JiF"/>
+                    <navigationItem key="navigationItem" id="edR-QN-n7D">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="BFa-R0-ejK"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="msgTableView" destination="c0g-Je-Kqa" id="9OR-5M-eXB"/>
                         <segue destination="Vs3-d1-iqD" kind="presentation" identifier="viewMessageSegue" id="Xw3-xT-rfZ"/>
@@ -501,7 +580,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xj4-Al-1IZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1448.8" y="577.9610194902549"/>
+            <point key="canvasLocation" x="1592.8" y="577.9610194902549"/>
         </scene>
         <!--View Message-->
         <scene sceneID="vGU-ps-I9n">
@@ -577,7 +656,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dm8-EP-PWr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1428" y="1393.8530734632684"/>
+            <point key="canvasLocation" x="2466" y="1381"/>
         </scene>
         <!--Create Mail View Controller-->
         <scene sceneID="lPc-pF-3rV">
@@ -591,23 +670,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Atc-lk-Pfe">
-                                <rect key="frame" x="0.0" y="6" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="Compose Message" id="eA0-wi-ALq">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="qe6-MQ-Aiv">
-                                            <connections>
-                                                <action selector="didTapCancel:" destination="3Iv-h5-bmn" id="lYC-fO-1b1"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Send" id="fvc-TF-GkQ">
-                                            <connections>
-                                                <action selector="sendMail:" destination="3Iv-h5-bmn" id="oTv-WQ-3g2"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wcd-IL-veE">
                                 <rect key="frame" x="16" y="100" width="42" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -650,24 +712,41 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qc4-k4-Jt0">
+                                <rect key="frame" x="0.0" y="6" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Compose Message" id="GtI-92-vtj">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="B0Q-yh-GIN">
+                                            <connections>
+                                                <action selector="didTapCancel:" destination="3Iv-h5-bmn" id="rSl-GG-fgo"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Send" id="say-C1-ZHv">
+                                            <connections>
+                                                <action selector="sendMail:" destination="3Iv-h5-bmn" id="WbO-zd-frw"/>
+                                                <segue destination="riA-wn-jz8" kind="show" identifier="viewMessagesAfterCompose" id="mCa-cV-wsd"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Atc-lk-Pfe" firstAttribute="leading" secondItem="eGd-NA-Llj" secondAttribute="leading" id="8N8-Qy-EG3"/>
-                            <constraint firstItem="Atc-lk-Pfe" firstAttribute="top" secondItem="eGd-NA-Llj" secondAttribute="top" constant="6" id="gcW-Fd-tOt"/>
-                            <constraint firstAttribute="trailing" secondItem="Atc-lk-Pfe" secondAttribute="trailing" id="l1Y-2s-ABq"/>
+                            <constraint firstItem="qc4-k4-Jt0" firstAttribute="leading" secondItem="eGd-NA-Llj" secondAttribute="leading" id="NI4-R7-XpR"/>
+                            <constraint firstItem="qc4-k4-Jt0" firstAttribute="top" secondItem="eGd-NA-Llj" secondAttribute="top" constant="6" id="YCE-8x-GaY"/>
+                            <constraint firstAttribute="trailing" secondItem="qc4-k4-Jt0" secondAttribute="trailing" id="tDK-ev-peH"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mailBodyTextField" destination="Zvu-Ch-mMb" id="ONd-2N-Js0"/>
                         <outlet property="mailSubTextField" destination="dBM-IC-jRY" id="AU2-T4-n8g"/>
                         <outlet property="toTextField" destination="3VA-dQ-u9o" id="fGy-xL-die"/>
-                        <segue destination="riA-wn-jz8" kind="presentation" identifier="viewMessagesAfterCompose" id="sKP-Uh-IVs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Xb-o9-C4t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2072.8000000000002" y="1480.2098950524739"/>
+            <point key="canvasLocation" x="1513" y="1382"/>
         </scene>
         <!--Edit Profile-->
         <scene sceneID="gbG-d3-TNF">
@@ -798,7 +877,7 @@
                                     <constraint firstAttribute="width" constant="80" id="BLA-Dq-LE9"/>
                                 </constraints>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="p2S-AU-Hlu" appends="YES" id="uL4-Af-rzw"/>
+                                    <outletCollection property="gestureRecognizers" destination="Drg-S1-8ZX" appends="YES" id="vMV-Tf-igA"/>
                                 </connections>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Batman" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYc-Ng-QXP">
@@ -888,19 +967,6 @@
                                     <constraint firstItem="aD7-sP-EKB" firstAttribute="baseline" secondItem="xk6-31-sQ4" secondAttribute="firstBaseline" id="Zxo-7y-j5t"/>
                                 </constraints>
                             </stackView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QsT-bM-jvj">
-                                <rect key="frame" x="0.0" y="331" width="375" height="287"/>
-                                <connections>
-                                    <segue destination="G1F-rt-jhx" kind="embed" id="9N9-0O-6ge"/>
-                                </connections>
-                            </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="tweets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ho-ij-hJp">
-                                <rect key="frame" x="167" y="442" width="60" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -910,22 +976,18 @@
                             <constraint firstItem="2La-4c-u2y" firstAttribute="trailing" secondItem="5Ch-z7-Z7M" secondAttribute="trailingMargin" id="85B-ld-gG1"/>
                             <constraint firstAttribute="trailing" secondItem="iet-30-OyI" secondAttribute="trailing" id="8JI-aE-MUC"/>
                             <constraint firstItem="deF-R7-wIh" firstAttribute="leading" secondItem="5b2-Rp-wPb" secondAttribute="leading" id="Axf-hF-WFN"/>
-                            <constraint firstItem="prf-sK-cWS" firstAttribute="top" secondItem="QsT-bM-jvj" secondAttribute="bottom" id="BJo-54-CUd"/>
                             <constraint firstItem="63k-31-7OP" firstAttribute="leading" secondItem="DYc-Ng-QXP" secondAttribute="leading" id="HHA-sL-O83"/>
-                            <constraint firstAttribute="trailing" secondItem="QsT-bM-jvj" secondAttribute="trailing" id="KxS-kN-ekm"/>
                             <constraint firstItem="DYc-Ng-QXP" firstAttribute="trailing" secondItem="uMM-eg-pwa" secondAttribute="trailing" id="Mmk-dW-OHA"/>
                             <constraint firstItem="63k-31-7OP" firstAttribute="top" secondItem="IbK-lT-gJK" secondAttribute="bottom" constant="26" id="OPa-ad-cIu"/>
                             <constraint firstAttribute="trailing" secondItem="5b2-Rp-wPb" secondAttribute="trailing" constant="148" id="SyS-QW-Bex"/>
                             <constraint firstItem="deF-R7-wIh" firstAttribute="top" secondItem="uMM-eg-pwa" secondAttribute="bottom" constant="16" id="Tmx-kd-H1T"/>
                             <constraint firstItem="uMM-eg-pwa" firstAttribute="top" secondItem="DYc-Ng-QXP" secondAttribute="bottom" constant="1" id="Wbn-iL-iHU"/>
                             <constraint firstItem="deF-R7-wIh" firstAttribute="top" secondItem="iet-30-OyI" secondAttribute="bottom" constant="81" id="XfN-de-yKQ"/>
-                            <constraint firstItem="QsT-bM-jvj" firstAttribute="top" secondItem="5b2-Rp-wPb" secondAttribute="bottom" constant="21" id="br8-6o-amK"/>
                             <constraint firstItem="5b2-Rp-wPb" firstAttribute="top" secondItem="deF-R7-wIh" secondAttribute="bottom" constant="13" id="gos-Hy-xSQ"/>
                             <constraint firstItem="63k-31-7OP" firstAttribute="leading" secondItem="5Ch-z7-Z7M" secondAttribute="leadingMargin" id="mn5-kr-bMg"/>
                             <constraint firstItem="63k-31-7OP" firstAttribute="top" secondItem="2La-4c-u2y" secondAttribute="top" id="o28-s4-lBp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="deF-R7-wIh" secondAttribute="trailing" constant="-8" id="psT-IJ-PmV"/>
                             <constraint firstItem="deF-R7-wIh" firstAttribute="leading" secondItem="5Ch-z7-Z7M" secondAttribute="leadingMargin" constant="-6" id="qJw-Am-FSR"/>
-                            <constraint firstItem="QsT-bM-jvj" firstAttribute="leading" secondItem="5Ch-z7-Z7M" secondAttribute="leading" id="vbn-pa-PTV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My profile" id="gdH-r8-uGD"/>
@@ -933,14 +995,13 @@
                         <outlet property="about" destination="deF-R7-wIh" id="Hhd-ak-ZDT"/>
                         <outlet property="handle" destination="uMM-eg-pwa" id="XLL-uG-ObX"/>
                         <outlet property="name" destination="DYc-Ng-QXP" id="KYH-Cn-G20"/>
-                        <outlet property="postsContainer" destination="QsT-bM-jvj" id="E3t-ab-A7y"/>
                         <outlet property="profilePicture" destination="63k-31-7OP" id="aIV-is-rAB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YUo-Hi-toN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="p2S-AU-Hlu">
+                <tapGestureRecognizer id="Drg-S1-8ZX">
                     <connections>
-                        <action selector="didTapProfilePicture:" destination="Yyx-IT-VHe" id="wbD-l0-Npv"/>
+                        <action selector="didTapProfilePicture:" destination="Yyx-IT-VHe" id="1aT-5T-UYW"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -959,13 +1020,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adu-2K-wXn">
-                                <rect key="frame" x="141.5" y="321.5" width="93.5" height="25.5"/>
+                                <rect key="frame" x="140.5" y="320.5" width="94" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7I-ql-4OS">
-                                <rect key="frame" x="164.5" y="475" width="45" height="13"/>
+                                <rect key="frame" x="165" y="475" width="45" height="13"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="13" id="7vy-po-661"/>
                                 </constraints>
@@ -975,23 +1036,33 @@
                                     <segue destination="g7q-as-8bX" kind="presentation" id="VAZ-oa-AQr"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ccF-Ye-NyG">
-                                <rect key="frame" x="156" y="399" width="64" height="29"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ccF-Ye-NyG">
+                                <rect key="frame" x="155.5" y="398.5" width="64" height="29.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
                                     <segue destination="TKr-I0-qIY" kind="presentation" id="xIb-A9-sFo"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="social network" translatesAutoresizingMaskIntoConstraints="NO" id="sZH-cM-3im">
+                                <rect key="frame" x="112" y="123" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="5aj-yP-fdX"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="m7I-ql-4OS" firstAttribute="centerX" secondItem="3S0-mT-HtP" secondAttribute="centerX" id="BK1-MD-bPk"/>
+                            <constraint firstItem="adu-2K-wXn" firstAttribute="top" secondItem="sZH-cM-3im" secondAttribute="bottom" constant="47.5" id="ITb-g8-h2y"/>
                             <constraint firstItem="d7x-nF-65S" firstAttribute="top" secondItem="m7I-ql-4OS" secondAttribute="bottom" constant="179" id="K4r-3A-FqU"/>
                             <constraint firstItem="ccF-Ye-NyG" firstAttribute="top" secondItem="adu-2K-wXn" secondAttribute="bottom" constant="52" id="Lec-LA-mio"/>
                             <constraint firstItem="adu-2K-wXn" firstAttribute="centerX" secondItem="3S0-mT-HtP" secondAttribute="centerX" id="UpA-UA-agb"/>
                             <constraint firstItem="adu-2K-wXn" firstAttribute="centerX" secondItem="ccF-Ye-NyG" secondAttribute="centerX" id="YiT-q2-HJF"/>
                             <constraint firstItem="m7I-ql-4OS" firstAttribute="top" secondItem="ccF-Ye-NyG" secondAttribute="bottom" constant="47" id="kBK-bD-bnY"/>
+                            <constraint firstItem="sZH-cM-3im" firstAttribute="centerX" secondItem="3S0-mT-HtP" secondAttribute="centerX" id="u5q-c4-z6t"/>
+                            <constraint firstItem="sZH-cM-3im" firstAttribute="centerX" secondItem="3S0-mT-HtP" secondAttribute="centerX" id="vTu-kf-RcL"/>
+                            <constraint firstItem="sZH-cM-3im" firstAttribute="top" secondItem="Wuw-NU-0KN" secondAttribute="bottom" constant="103" id="wPE-ps-7FN"/>
                             <constraint firstItem="adu-2K-wXn" firstAttribute="centerY" secondItem="3S0-mT-HtP" secondAttribute="centerY" id="y2Y-Iz-vYQ"/>
                         </constraints>
                     </view>
@@ -1320,8 +1391,8 @@
                     <connections>
                         <segue destination="JcF-mt-bDO" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="riA-wn-jz8" kind="relationship" relationship="viewControllers" id="wgK-lr-s10"/>
                         <segue destination="Gaq-rL-peP" kind="relationship" relationship="viewControllers" id="UYk-sD-W58"/>
+                        <segue destination="riA-wn-jz8" kind="relationship" relationship="viewControllers" id="DE9-ru-Jol"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -1346,24 +1417,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfc-TU-jUb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1594" y="-771"/>
-        </scene>
-        <!--My Timeline View Controller-->
-        <scene sceneID="TOx-nK-ukp">
-            <objects>
-                <viewController id="G1F-rt-jhx" customClass="MyTimelineViewController" customModule="SocialNetworkApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="0Zr-7s-QnR"/>
-                        <viewControllerLayoutGuide type="bottom" id="zsO-lL-wXi"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="q6n-rc-sca">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="287"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rLj-uU-a2C" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="766" y="1164"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6Ix-Tb-lCc">
@@ -1417,7 +1470,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wVP-mv-cTN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3030" y="19"/>
+            <point key="canvasLocation" x="3968.8000000000002" y="18.440779610194905"/>
         </scene>
         <!--Me-->
         <scene sceneID="eyp-qC-20V">
@@ -1443,11 +1496,11 @@
             <objects>
                 <viewController title="Friend Req Sent" id="NgK-0E-JOW" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Kq-0V-zn5">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="517"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="515"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CYe-c7-jcG">
-                                <rect key="frame" x="0.0" y="6" width="375" height="511"/>
+                                <rect key="frame" x="0.0" y="6" width="375" height="509"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="fGE-fI-hMB" customClass="FriendReqSentTableViewCell" customModule="SocialNetworkApp" customModuleProvider="target">
@@ -1481,14 +1534,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jVe-o6-UOg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2176.8000000000002" y="783.95802098950526"/>
+            <point key="canvasLocation" x="3116" y="783.95802098950526"/>
         </scene>
         <!--Friend Req Recv-->
         <scene sceneID="9DF-6o-262">
             <objects>
                 <viewController title="Friend Req Recv" id="3vZ-58-NvF" customClass="FriendReqRecvViewController" customModule="SocialNetworkApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XMV-WY-DGW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="527"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="525"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bgp-Ce-5r7">
@@ -1532,7 +1585,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QWt-lG-fTP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2949.5999999999999" y="788.45577211394311"/>
+            <point key="canvasLocation" x="3888.8000000000002" y="788.45577211394311"/>
         </scene>
     </scenes>
     <resources>
@@ -1542,12 +1595,13 @@
         <image name="Notification-25" width="25" height="25"/>
         <image name="Twitter-25" width="25" height="25"/>
         <image name="User-25" width="25" height="25"/>
+        <image name="social network" width="626" height="626"/>
         <image name="wallpaper" width="2560" height="1600"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GVr-7q-XBe"/>
-        <segue reference="cQU-jQ-agz"/>
+        <segue reference="VAZ-oa-AQr"/>
         <segue reference="g83-iB-OWe"/>
-        <segue reference="sKP-Uh-IVs"/>
+        <segue reference="mCa-cV-wsd"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -19,7 +19,7 @@ class createMailViewController: UIViewController {
     @IBOutlet weak var mailSubTextField: UITextField!
     @IBOutlet weak var mailBodyTextField: UITextView!
 
-   
+    
     @IBAction func sendMail(_ sender: Any) {
         let m = msgItem(from: "", to: toTextField.text!, sub: mailSubTextField.text!, body:  mailBodyTextField.text!, id: "" )
         
@@ -30,7 +30,7 @@ class createMailViewController: UIViewController {
     
     @IBAction func didTapCancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-        
+
     }
     
     override func viewDidLoad() {
@@ -38,7 +38,7 @@ class createMailViewController: UIViewController {
         
     }
     
-    override func didReceiveMemoryWarning() {
+       override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
     }

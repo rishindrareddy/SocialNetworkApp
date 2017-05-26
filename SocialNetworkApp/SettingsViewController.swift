@@ -77,11 +77,11 @@ class SettingsViewController: UIViewController {
         if notificationSwitch.isOn {
             //write into DB
             print("Switch is on")
-            self.rootRef.child("user_profiles").child(self.loggedInUser!.uid!).child("email_notif").setValue("enabled")
+            self.rootRef.child("user_profiles").child(self.loggedInUser!.uid!).child("notifications").setValue("enabled")
            
         } else {
             print("Switch is off")
-            self.rootRef.child("user_profiles").child(self.loggedInUser!.uid!).child("email_notif").setValue("disabled")
+            self.rootRef.child("user_profiles").child(self.loggedInUser!.uid!).child("notifications").setValue("disabled")
         }
         }
     }

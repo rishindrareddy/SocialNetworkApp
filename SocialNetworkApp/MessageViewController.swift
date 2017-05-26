@@ -22,7 +22,6 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     var handle = ""
 
     
-    
     @IBOutlet weak var toTextField: UITextField!
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var subTextField: UITextField!
@@ -46,8 +45,6 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 let m = msgItem(from: dict.value(forKey: "from")! as! String,to: dict.value(forKey: "to")! as! String,sub: dict.value(forKey: "sub")! as! String,body: dict.value(forKey: "body")! as! String, id: child.key )
                 self.msgArray.append(m)
-                
-               // self.findUsersTableView.insertRows(at: [IndexPath(row:self.usersArray.count-1,section:0)], with: UITableViewRowAnimation.automatic)
                 
                 print("MsgArray:  \(self.msgArray)")
                 
@@ -122,14 +119,6 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    @IBAction func reloadMessages(_ sender: Any) {
-        
-      print("RELOADING DATA")
-        //self.viewDidLoad()
-       // self.msgTableView.reloadData()
-        print("after compose msgArray \(msgArray)")
-    }
-    
     //delete message
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -154,16 +143,13 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if segue.identifier == "viewMessageSegue" {
             let destVC2 = segue.destination as! ShowMailViewController
-         
+            
             let temp = sender as? msgItem
             destVC2.toLabelText = temp?.to as! String
             destVC2.fromLabelText = temp?.from as! String
             destVC2.subLabelText = temp?.sub as! String
             destVC2.mailBodyText = temp?.body as! String
-            
         }
-        
-        
     }
     
     

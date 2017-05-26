@@ -34,6 +34,7 @@
 		FEFC2B761ED6B2E90034090E /* ShowMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFC2B751ED6B2E90034090E /* ShowMailViewController.swift */; };
 		FEFC2B781ED765D50034090E /* FriendReqSentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFC2B771ED765D50034090E /* FriendReqSentTableViewCell.swift */; };
 		FEFC2B7A1ED766290034090E /* FriendReqSentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFC2B791ED766290034090E /* FriendReqSentTableViewController.swift */; };
+		FEFC2B7C1ED77B140034090E /* viewFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFC2B7B1ED77B140034090E /* viewFriendViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		FEFC2B751ED6B2E90034090E /* ShowMailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowMailViewController.swift; sourceTree = "<group>"; };
 		FEFC2B771ED765D50034090E /* FriendReqSentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendReqSentTableViewCell.swift; sourceTree = "<group>"; };
 		FEFC2B791ED766290034090E /* FriendReqSentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendReqSentTableViewController.swift; sourceTree = "<group>"; };
+		FEFC2B7B1ED77B140034090E /* viewFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = viewFriendViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 				FEFC2B631ED683610034090E /* EditProfileViewController.swift */,
 				FEFC2B611ED6797C0034090E /* SettingsViewController.swift */,
 				FEFC2B5F1ED658170034090E /* FindUsersTableViewController.swift */,
+				FEFC2B7B1ED77B140034090E /* viewFriendViewController.swift */,
 				FE650CA71ED3C191007B73C8 /* ProfileSetupViewController.swift */,
 				FE3B0F7A1EBD3B620089C41E /* Assets.xcassets */,
 				FE3B0F7C1EBD3B620089C41E /* LaunchScreen.storyboard */,
@@ -278,6 +281,7 @@
 				FEFC2B7A1ED766290034090E /* FriendReqSentTableViewController.swift in Sources */,
 				FE8E3AE31ED18DEC00A31C24 /* LoginViewController.swift in Sources */,
 				FEFC2B681ED6A2A10034090E /* FriendReqRecvViewController.swift in Sources */,
+				FEFC2B7C1ED77B140034090E /* viewFriendViewController.swift in Sources */,
 				FE650CA41ED3A0BA007B73C8 /* StartViewController.swift in Sources */,
 				FEFC2B601ED658170034090E /* FindUsersTableViewController.swift in Sources */,
 				FEFC2B661ED69B640034090E /* MyTimelineViewController.swift in Sources */,

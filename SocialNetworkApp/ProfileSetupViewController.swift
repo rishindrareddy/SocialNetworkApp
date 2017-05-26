@@ -37,11 +37,9 @@ class ProfileSetupViewController: UIViewController {
                 if(!snapshot.exists())
                 {
                     //update the handle in the user_profiles and in the handles node
-                    
                     self.rootRef.child("user_profiles").child(self.user!.uid).child("handle").setValue(self.handle.text!.lowercased())
                     
                     //update the name of the user
-                    
                     self.rootRef.child("user_profiles").child(self.user!.uid).child("name").setValue(self.fullName.text!)
                     
                     //update about of the user
@@ -66,15 +64,11 @@ class ProfileSetupViewController: UIViewController {
                     self.rootRef.child("user_profiles").child(self.user!.uid).child("notifications").setValue("disabled")
                     
                     //update the handle in the handle node
-                    
                     self.rootRef.child("handles").child(self.handle.text!.lowercased()).setValue(self.user?.uid)
-                    
-                    
                     
                     
                     //send the user to home screen
                     self.performSegue(withIdentifier: "HomeViewSegue", sender: nil)
-                    
                     
                 }
                 else
@@ -108,7 +102,7 @@ class ProfileSetupViewController: UIViewController {
     
     func giveAlert(_ msg : String) {
         //pop an alert
-        let alert1 = UIAlertController(title: "Oops!", message: msg, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alert1 = UIAlertController(title: "Alert!", message: msg, preferredStyle: UIAlertControllerStyle.actionSheet)
         
         let action1 = UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.default , handler: nil)
         

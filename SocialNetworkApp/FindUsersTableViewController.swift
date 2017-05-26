@@ -141,6 +141,28 @@ class FindUsersTableViewController: UITableViewController, UISearchResultsUpdati
     }
     */
 
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//    
+//        
+//        performSegue(withIdentifier: "viewFriendProfile", sender: usersArray[indexPath.row])
+//    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "viewFriendProfile" {
+        
+            if let indexPath = tableView.indexPathForSelectedRow {
+                
+                let user = usersArray[indexPath.row]
+                let viewFriend = segue.destination as! viewFriendViewController
+                viewFriend.loggedInUser = self.loggedInUser
+                viewFriend.otherUser = user
+            }
+        
+        }
+        
+       
+    }
 
     @IBAction func dismissFindUsersTableView(_ sender: Any) {
         dismiss(animated: true, completion: nil)

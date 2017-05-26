@@ -135,7 +135,7 @@ class SignUpViewController: UIViewController {
     
     func giveAlert (_ msg : String) {
         //pop an alert
-        let alert1 = UIAlertController(title: "Oops!", message: msg , preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alert1 = UIAlertController(title: "Alert!", message: msg , preferredStyle: UIAlertControllerStyle.actionSheet)
         
         let action1 = UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.default , handler: nil)
         
