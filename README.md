@@ -5,7 +5,7 @@
 #### Presentation URL: https://docs.google.com/presentation/d/1pwH5g4FE4LNrjjX9j4GA_0QZWNGY5s_osQ_yS-t_7Vc/edit?usp=sharing
 
 #### Authors :
-- Rakesh Datta (id: , email: rakesh.datta@sjsu.edu)
+- Rakesh Datta (id: 010808447, email: rakesh.datta@sjsu.edu)
 - Siddhi Suthar (id: 010718422, email: siddhi.suthar@sjsu.edu)
 - Rishindra Reddy D. (id: 011480625, email: rishindrareddy@hotmail.com)
 - Aarti Chella (id: 010822565, email: aarti.chella@sjsu.edu)
@@ -14,8 +14,6 @@
 ## Table of Contents
 -----------------
 - [About The APP](#about-The-App)
-- [Motivation](#motivation)
-- [Solution](#solution)
 - [User Stories](#user-stories)
 - [Development Stack](#development-stack) 
 - [Getting started](#getting-started)
@@ -93,5 +91,11 @@ it in your project files. Also refer to documentation of setting up Firebase in 
   pod 'FirebaseStorage'
   pod 'FirebaseDatabase'
  - pod install
- 
-  
+
+#
+### References
+-We have refered documentation of Firebase, Cocoapods and some Youtube tutorials.
+- https://firebase.google.com/docs/reference/ios/firebasecore/api/reference/Classes
+- https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/
+- https://www.youtube.com/watch?v=_PEsJgklYrg
+- https://www.youtube.com/watch?v=C5iBh8Kh840&list=PLy9JCsy2u97nNVAjBlv99oxSUyxzQxK__&index=2
